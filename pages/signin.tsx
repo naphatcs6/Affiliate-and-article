@@ -1,22 +1,21 @@
-import React from "react";
+import React from 'react'
 import styles from "../styles/Home.module.css";
 
-type Props = {};
+type Props = {}
 
-export default function sign({}: Props) {
+export default function signin({}: Props) {
   return (
     <div className={styles.main}>
       <div className="outline outline-offset-2 outline-1 rounded min-w-fit flex flex-col justify-center">
-        <button className="m-2 first-letter:bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
-          Sign in
-        </button>
+        <input className='m-2 rounded outline outline-offset-2 outline-1' type='text' placeholder='Email'/>
+        <input className='m-2 rounded outline outline-offset-2 outline-1' type='password' placeholder='password'/>
         <button className="m-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-          Sign up
+          Login
         </button>
         <button className="m-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-          Sign up with google
+          Cancel
         </button>
       </div>
     </div>
-  );
+  )
 }
