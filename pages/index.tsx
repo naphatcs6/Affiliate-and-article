@@ -1,11 +1,12 @@
-import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
+import React from 'react'
+import { Route , Routes } from 'react-router-dom'
+import Home from './home'
+import Sign from './sign'
 
-export default function Home() {
+export default function Component() {
   return (
-    <div className="bg-green-500">
-      
-    </div>
-  );
+    <>
+      <Sign/>
+    </>
+  )
 }

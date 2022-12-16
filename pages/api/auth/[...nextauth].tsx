@@ -1,15 +1,13 @@
-import React from "react";
 import CredentialsProvider from "next-auth/providers/credentials";
+import NextAuth from "next-auth/next";
 
-type Props = {};
-
-export default function nextauth({}: Props) {
-  providers: [
+export default NextAuth({
+  providers:[
     CredentialsProvider({
       name: "Credentials",
 
       credentials: {
-        username: { label: "Username", type: "text" },
+        email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
@@ -26,5 +24,5 @@ export default function nextauth({}: Props) {
         return null;
       },
     }),
-  ];
-}
+  ],secret: "LlKq6ZtYbr+hTC073mAmAh9/h2HwMfsFo4hrfCx5mLg=",
+}) 
