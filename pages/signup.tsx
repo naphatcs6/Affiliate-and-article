@@ -5,63 +5,59 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { useRouter } from "next/router";
+import Router from "next/router";
+import { validate } from '../utils/validate';
 
 type Props = {}
 
 export default function signup({ }: Props) {
-  const [inputs, setInputs] = useState<any>({});
-  const MySwal = withReactContent(Swal);
-  const router = useRouter();
+  const router = useRouter()
+  const [values, setValues] = useState({
+    email: '',
+    otp: '',
+    password: '',
+  });
 
-  const handleChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setInputs((values) => ({ ...values, [name]: value }));
-  };
+  const [errors, setErrors] = useState<{email?: string; otp?: string }>({})
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
-    var raw = JSON.stringify({
-      email: inputs.email,
-      password: inputs.password,
-    });
-
-    var requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow",
-    };
-
-    fetch("http://localhost:8080/user-api/user/register", {
-      method: "POST",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow",
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        console.log(result);
-        if (result.status === "ok") {
-          MySwal.fire({
-            html: <i>{result.message}</i>,
-            icon: "success",
-          }).then((value) => {
-            return router.push('/authotp')
-          });
-        } else {
-          MySwal.fire({
-            html: <i>{result.message}</i>,
-            icon: "error",
-          });
-        }
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    console.log(values);
+    e.preventDefault();
+    const errosr = validate(values)
+    const isError = Object.keys(errosr).length
+    if (isError && isError > 0) {
+      console.log(errors)
+      setErrors(errors)
+      return
+    }
+    try{
+      const res = await fetch('/api/send',{
+        method: 'POST',
+        headers:{
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values)
       })
-      .catch((error) => console.log("error", error));
-    console.log(inputs);
-  };
+      if(!res.ok){
+        setValues({email: '',otp: '' ,password: ''})
+      }
+    }catch(e){
+      console.log(e);
+    }
+    console.log(values);
+    const email = values.email
+    Router.push({
+      pathname: "/authotp",
+      query: {
+        email
+      }
+    })
+    return router.push('/authotp')
+  }
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
+    setValues((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  }
   return (
     <>
       <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -88,8 +84,8 @@ export default function signup({ }: Props) {
                 <input
                   type="email"
                   name="email"
-                  value={inputs.email || ""}
-                  onChange={handleChange}
+                  value={values.email || ""}
+                  onChange={onChange}
                   placeholder="Email"
                   required
                   className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
@@ -102,8 +98,8 @@ export default function signup({ }: Props) {
                 <input
                   type="password"
                   name="password"
-                  value={inputs.password || ""}
-                  onChange={handleChange}
+                  value={values.password || ""}
+                  onChange={onChange}
                   placeholder="password"
                   required
                   className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"

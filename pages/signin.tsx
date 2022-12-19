@@ -4,10 +4,14 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { useRouter } from "next/router";
+import Router from "next/router";
 
 type Props = {};
 
-export default function signin({}: Props) {
+export default function signin({ }: Props) {
+  function sendProps() {
+    Router.push
+  }
   const [inputs, setInputs] = useState<any>({});
   const MySwal = withReactContent(Swal);
   const router = useRouter();
@@ -27,38 +31,58 @@ export default function signin({}: Props) {
       email: inputs.email,
       password: inputs.password,
     });
-
-    var requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow",
-    };
-
-    fetch("http://localhost:8080/user-api/user/login", {
-      method: "POST",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow",
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        console.log(result);
-        if (result.status === "ok") {
-          MySwal.fire({
-            html: <i>{result.message}</i>,
-            icon: "success",
-          }).then((value) => {
-            return router.push('/home')
-          });
-        } else {
-          MySwal.fire({
-            html: <i>{result.message}</i>,
-            icon: "error",
-          });
+    MySwal.fire({
+      html: <i>Login Success</i>,
+      icon: "success",
+    }).then((value) => {
+      const email = inputs.email
+      Router.push({
+        pathname: "/home",
+        query: {
+          email
         }
       })
-      .catch((error) => console.log("error", error));
+      return router.push('/home')
+    });
+    // fetch("http://localhost:8080/user-api/user/login", {
+    //   method: "POST",
+    //   headers: myHeaders,
+    //   body: raw,
+    //   redirect: "follow",
+    // })
+    //   .then((response) => response.json())
+    //   .then((result) => {
+    //     console.log(result);      
+    //     if (result.status === "ok") {
+    //       MySwal.fire({
+    //         html: <i>{result.message}</i>,
+    //         icon: "success",
+    //       }).then((value) => {
+    //         const message = result.message
+    //         const status = result.status
+    //         const token = result.token
+    //         const user = result.user
+    //         const email = inputs.email
+    //         Router.push({
+    //           pathname: "/home",
+    //           query:{
+    //             message,
+    //             status,
+    //             token,
+    //             user,
+    //             email
+    //           }
+    //         })
+    //         return router.push('/home')
+    //       });
+    //     } else {
+    //       MySwal.fire({
+    //         html: <i>{result.message}</i>,
+    //         icon: "error",
+    //       });
+    //     }
+    //   })
+    //   .catch((error) => console.log("error", error));
     console.log(inputs);
   };
   return (
@@ -105,7 +129,7 @@ export default function signin({}: Props) {
                   onChange={handleChange}
                   placeholder="password"
                   required
-                  className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"                  
+                  className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                 />
               </div>
             </div>
