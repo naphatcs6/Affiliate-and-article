@@ -8,7 +8,6 @@ type Data = {
 }
 
 export default async function handler(req: NextApiRequest,res: NextApiResponse<Data>) {
-  const codeotp = Math.floor(100000 + Math.random() * 900000)
   if(req.method = 'POST'){
     const {email,otp}:{email:string,otp:string} = req.body
     const msg ={
@@ -16,7 +15,7 @@ export default async function handler(req: NextApiRequest,res: NextApiResponse<D
       from: 'all2bot123@gmail.com',
       subject: `Example send you a message`,
       text: `Email => ${email}`,
-      html: `<strong>Your otp code is ${codeotp}</strong>`
+      html: `<strong>Your otp code is ${otp}</strong>`
     }
     try{
       await sgMail.send(msg)

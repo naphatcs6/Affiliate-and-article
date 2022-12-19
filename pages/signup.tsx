@@ -12,12 +12,13 @@ type Props = {}
 
 export default function signup({ }: Props) {
   const router = useRouter()
+  // const otp = ""+Math.floor(100000 + Math.random() * 900000)
   const [values, setValues] = useState({
     email: '',
-    otp: '',
+    otp: `${Math.floor(100000 + Math.random() * 900000)}`,
     password: '',
   });
-
+  
   const [errors, setErrors] = useState<{email?: string; otp?: string }>({})
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -46,10 +47,12 @@ export default function signup({ }: Props) {
     }
     console.log(values);
     const email = values.email
+    const otp = values.otp
     Router.push({
       pathname: "/authotp",
       query: {
-        email
+        email,
+        otp,
       }
     })
     return router.push('/authotp')
