@@ -3,45 +3,86 @@ import React, { useState } from 'react'
 import styles from "../styles/Home.module.css";
 import { validate } from '../utils/validate';
 import Router from "next/router";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import { useEffect } from 'react';
 
 type Props = {}
 
 export default function authotp({ }: Props) {
+  const MySwal = withReactContent(Swal);
   const router = useRouter()
-  const [inputs, setInputs] = useState<any>({});
+  const [inputs, setInputs] = useState<any>({
+    email: "",
+    password: "",
+    firstname: "",
+    lastname: "",
+    dateborn: "",
+    address: "",
+    province: "",
+    district: "",
+    postcode: "",
+  });
   const {
     query: {
       email,
+      password,
       otp,
     }
   } = router
   const props = {
     email,
+    password,
     otp,
   }
-  const [values, setValues] = useState({
-    email: `${props.email}`,
-    otp: `${props.otp}`,
-  });
+  useEffect(() => {
+    localStorage.setItem('userLogin', JSON.stringify(inputs));
+  }, [inputs]);
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
     setInputs((values) => ({ ...values, [name]: value }));
   };
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    console.log(props.email + " " + props.password)
+    e.preventDefault();
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    var raw = JSON.stringify({
+      email: props.email,
+      password: props.password,
+    });
+
     if(inputs.otp == props.otp){
-      console.log("True")
-      Router.push({
-        pathname: "/authotp",
-        query: {
-          email,
-          otp,
+      console.log("OTP is True")
+      fetch("http://localhost:8080/user-api/user/register", {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+        if (result.status === "ok") {
+          setInputs({...inputs, email: props.email, password: props.password})
+          
+          MySwal.fire({
+            html: <i>{result.message}</i>,
+            icon: "success",
+          }).then((value) => {
+            return router.push('/home')
+          });
+        } else {
+          MySwal.fire({
+            html: <i>{result.message}</i>,
+            icon: "error",
+          });
         }
       })
-      return router.push('/register')
+      .catch((error) => console.log("error", error));
     }else{
-      console.log("False")
+      console.log("oTP is False")
     }
   }
 

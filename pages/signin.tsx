@@ -9,12 +9,22 @@ import Router from "next/router";
 type Props = {};
 
 export default function signin({ }: Props) {
-  function sendProps() {
-    Router.push
-  }
-  const [inputs, setInputs] = useState<any>({});
+
+  const [inputs, setInputs] = useState<any>({
+    email: "",
+    password: "",
+    otp: "",
+    firstname: "",
+    lastname: "",
+    dateborn: "",
+    address: "",
+    province: "",
+    district: "",
+    postcode: "",
+  });
   const MySwal = withReactContent(Swal);
   const router = useRouter();
+
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -31,58 +41,47 @@ export default function signin({ }: Props) {
       email: inputs.email,
       password: inputs.password,
     });
-    MySwal.fire({
-      html: <i>Login Success</i>,
-      icon: "success",
-    }).then((value) => {
-      const email = inputs.email
-      Router.push({
-        pathname: "/home",
-        query: {
-          email
+
+    fetch("http://localhost:8080/user-api/user/login", {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+        if (result.status === "ok") {
+          localStorage.setItem('userLogin', JSON.stringify(inputs));
+          MySwal.fire({
+            html: <i>{result.message}</i>,
+            icon: "success",
+          }).then((value) => {
+            const message = result.message
+            const status = result.status
+            const token = result.token
+            const user = result.user
+            const email = inputs.email
+            Router.push({
+              pathname: "/home",
+              query: {
+                message,
+                status,
+                token,
+                user,
+                email,
+              }
+            })
+            return router.push('/home')
+          });
+        } else {
+          MySwal.fire({
+            html: <i>{result.message}</i>,
+            icon: "error",
+          });
         }
       })
-      return router.push('/home')
-    });
-    // fetch("http://localhost:8080/user-api/user/login", {
-    //   method: "POST",
-    //   headers: myHeaders,
-    //   body: raw,
-    //   redirect: "follow",
-    // })
-    //   .then((response) => response.json())
-    //   .then((result) => {
-    //     console.log(result);      
-    //     if (result.status === "ok") {
-    //       MySwal.fire({
-    //         html: <i>{result.message}</i>,
-    //         icon: "success",
-    //       }).then((value) => {
-    //         const message = result.message
-    //         const status = result.status
-    //         const token = result.token
-    //         const user = result.user
-    //         const email = inputs.email
-    //         Router.push({
-    //           pathname: "/home",
-    //           query:{
-    //             message,
-    //             status,
-    //             token,
-    //             user,
-    //             email
-    //           }
-    //         })
-    //         return router.push('/home')
-    //       });
-    //     } else {
-    //       MySwal.fire({
-    //         html: <i>{result.message}</i>,
-    //         icon: "error",
-    //       });
-    //     }
-    //   })
-    //   .catch((error) => console.log("error", error));
+      .catch((error) => console.log("error", error));
     console.log(inputs);
   };
   return (

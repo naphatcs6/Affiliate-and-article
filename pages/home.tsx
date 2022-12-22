@@ -1,31 +1,41 @@
-import React from 'react'
+import React from "react";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
+import Layout from "../components/Layout";
+import { useState } from "react";
 
-type Props = {}
+type Props = {};
 
-export default function home({ }: Props) {
-  const router = useRouter()
+export default function home({}: Props) {
+  const userLocaol = localStorage.getItem("userLogin") ? JSON.parse(localStorage.getItem("userLogin")!) : "";
+  const router = useRouter();
+  const { data: session } = useSession();
   const {
-    query: {
-      message,
-      status,
-      token,
-      user,
-      email,
-    }
-  } = router
+    query: { message, status, token, user, email },
+  } = router;
   const props = {
     message,
     status,
     token,
     user,
     email,
-  }
-  // const tokenBar = ""+props.token
-  // var myHeaders = new Headers();
-  // myHeaders.append("Authorization", `Bearer ${tokenBar}`);
+  };
+  const [userCurr, setUser] = useState({
+    email: "",
+    password: "",
+    firstname: "",
+    lastname: "",
+    dateborn: "",
+    address: "",
+    province: "",
+    district: "",
+    postcode: "",
+  });
+  const tokenBar = ""+props.token
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", `Bearer ${tokenBar}`);
 
-  // var raw = "";
+  var raw = "";
 
   // fetch("http://localhost:8080/jwt/profile",{
   //   method: 'GET',
@@ -36,6 +46,10 @@ export default function home({ }: Props) {
   //   .then(result => console.log(result))
   //   .catch(error => console.log('error', error));
   return (
-    <div>Home {props.email}</div>
-  )
+    <Layout>
+      <div className="overflow bg-white shadow h-full">
+        User {userLocaol.email}
+      </div>
+    </Layout>
+  );
 }

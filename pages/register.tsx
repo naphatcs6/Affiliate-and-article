@@ -1,13 +1,31 @@
 import React from 'react'
 import styles from "../styles/Home.module.css";
 import Header from '../components/Header';
+import { useRouter } from 'next/router';
+import { useSession, signIn, signOut } from "next-auth/react"
 
 type Props = {}
 
 export default function register({ }: Props) {
+  const router = useRouter()
+  const { data: session } = useSession()
+  const {
+    query: {
+      email,
+      otp,
+    }
+  } = router
+  const props = {
+    email,
+    otp,
+  }
+  if(props.email == null){
+    props.email = `${session?.user?.email}`
+  }
   return (
     <>
       {/* <Header/> */}
+      <button className="flex justify-center m-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onClick={() => signOut()}>Sign out</button>
       <div className={styles.main}>
         <div className="px-4 sm:px-0">
           <h3 className="text-sm font-medium leading-6 text-gray-900">Register process</h3>
@@ -47,16 +65,18 @@ export default function register({ }: Props) {
                           className="relative block w-full appearance-none rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                         />
                       </div>
-
+                      
                       <div className="col-span-6 sm:col-span-4">
                         <label htmlFor="email-address" className="block text-sm font-medium text-gray-700">
-                          Email address
+                          Email address 
                         </label>
                         <input
+                          value={props.email}
                           type="text"
                           name="email-address"
                           id="email-address"
                           autoComplete="email"
+                          disabled
                           className="relative block w-full appearance-none rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                         />
                       </div>
