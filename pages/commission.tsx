@@ -1,9 +1,13 @@
 import React from 'react'
+import Layout from '../components/Layout'
 
 type Props = {}
 
 export default function commission({}: Props) {
   return (
-    <div>commission</div>
+    <Layout>
+      <div>commission</div>
+    </Layout>
+    
   )
 }

@@ -11,7 +11,7 @@ export default function Sidebar({ }: any) {
   const router = useRouter()
 
   return (
-    <div className="h-screen px-4 pt-8 pb-4 bg-gray-300 flex justify-between flex-col w-40">
+    <div className="h-screen px-4 pt-8 pb-4 bg-gray-300 flex justify-between flex-col w-50">
       <ul>
         {Sidebardata.map((item, index) => {
           return (
