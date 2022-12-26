@@ -15,19 +15,23 @@ export default function Sidebar({ }: any) {
       <ul>
         {Sidebardata.map((item, index) => {
           return (
-            <li key={index} className={item.pName}>
-              <Link href={item.path}>
+            <li key={index} className='p-1 w-full hover:bg-blue-500 flex justify-center rounded'>
+              <Link href={item.path} className='hover:bg-blue-500 rounded'>
                 <span>{item.title}</span>
               </Link>
             </li>
           )
         })}
-        <button onClick={() => {
-          console.log("Outtttttt")
-          router.push('/sign')
-          // localStorage.removeItem("userLogin")
-        }}>Sign out</button>
       </ul>
+      <footer>
+        <div className="flex justify-center hover:bg-blue-500 rounded p-1">
+          <button onClick={() => {
+            console.log("Outtttttt")
+            router.push('/sign')
+            // localStorage.removeItem("userLogin")
+          }}>Sign out</button>
+        </div>
+      </footer>
     </div>
   );
 }

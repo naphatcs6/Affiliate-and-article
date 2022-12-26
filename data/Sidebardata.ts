@@ -2,7 +2,7 @@ export const Sidebardata = [
   {
     title: 'Home',
     path: '/home',
-    pName: 'nav-text'
+    pName: 'nav-text',
   },
   {
     title: 'Profile',

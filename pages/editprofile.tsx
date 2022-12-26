@@ -78,7 +78,7 @@ export default function editprofile({ }: Props) {
                   <dt className="text-sm font-medium text-gray-500">Date of birth</dt>
                   <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                     <input type='date' className='relative block w-3/5 appearance-none rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
-
+                      
                     />
                   </dd>
                 </div>
