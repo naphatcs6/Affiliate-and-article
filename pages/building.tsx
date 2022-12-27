@@ -6,6 +6,16 @@ import CardMedia from "@mui/material/CardMedia";
 type Props = {};
 
 export default function building({ data }: any) {
+  const [link, setLink] = useState("link/12345")
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const handleChange = (event) => {
+    let result = "";
+    const charactersLength = characters.length;
+    for (let i = 0; i < 5; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    setLink(`${"link/" + result}`)
+  };
   return (
     <Layout>
       <div className="bg-gray-50">
@@ -29,7 +39,7 @@ export default function building({ data }: any) {
                   <p className="mt-1 text-sm font-medium text-gray-900">
                     {item.name}
                   </p>
-                  <button className="group relative flex justify-center rounded-md border border-transparent bg-indigo-600 py-1 px-1 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                  <button onClick={handleChange} className="group relative flex justify-center rounded-md border border-transparent bg-indigo-600 py-1 px-1 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                     Generate Link
                   </button>
                 </div>
@@ -46,7 +56,9 @@ export default function building({ data }: any) {
           <div className="flex flex-cols justify-end">
             <div className="px-2">Generate Link</div>
             <div className="px-2">
-              <input value="Some link" className="rounded"/>
+              <div className="bg-white w-40">
+                {link}
+              </div>
             </div>
             <div className="px-2 hover:bg-gray-200">
               <button>Copy link</button>

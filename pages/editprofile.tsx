@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { format } from 'path';
 import React, { useEffect, useState } from 'react'
 import Layout from '../components/Layout';
 
@@ -10,13 +11,14 @@ export default function editprofile({ }: Props) {
   useEffect(() => {
     setUser(localStorage.getItem("userLogin") ? JSON.parse(localStorage.getItem("userLogin")!) : "")
   }, [])
+  const [date, setDate] = useState("")
   const [user, setUser] = useState({
     email: "",
     password: "",
     otp: "",
     firstname: "",
     lastname: "",
-    dateborn: "",
+    dateborn: Date(),
     address: "",
     province: "",
     district: "",
@@ -26,12 +28,15 @@ export default function editprofile({ }: Props) {
     const name = event.target.name;
     const value = event.target.value;
     setUser((values) => ({ ...values, [name]: value }));
+    
   };
   const handleSubmit = (event) => {
     event.preventDefault();
     localStorage.setItem('userLogin', JSON.stringify(user));
     console.log("Submit 111")
   }
+  var year = new Date() 
+  console.log(year)
   return (
     <>
       <Layout>
@@ -77,8 +82,10 @@ export default function editprofile({ }: Props) {
                 <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                   <dt className="text-sm font-medium text-gray-500">Date of birth</dt>
                   <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                    <input type='date' className='relative block w-3/5 appearance-none rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
-                      
+                    <input className='relative block w-3/5 appearance-none rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
+                      type='date'
+                      name="dateborn"
+                      onChange={handleChange}
                     />
                   </dd>
                 </div>
