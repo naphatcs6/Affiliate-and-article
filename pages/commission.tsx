@@ -22,12 +22,14 @@ export default function commission({ }: Props) {
 
   return (
     <Layout>
-      <div className='flex justify-center'>
-        <div className='flex flex-col'>
-          <div className='pb-8 pt-8 flex justify-center'>
-            <h3 className="text-lg font-medium leading-6 text-gray-900">Calculate commission</h3>
-          </div>
-          <div className="shadow sm:overflow-hidden sm:rounded-md space-y-6 bg-white px-4 py-5 sm:p-6 rounded min-w-fit flex flex-col justify-center w-1/3">
+      <div className="bg-gray-50">
+        <div className="px-4 py-5 sm:px-6 bg-white shadow">
+          <h3 className="text-lg font-medium leading-6 text-gray-900">
+            Calculate commission
+          </h3>
+        </div>
+        <div className="mx-auto max-w-2xl py-16 px-4 sm:py-8 sm:px-6 lg:max-w-7xl lg:px-8">
+          <div className="">
             <dl>
               <div className="py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">Price (฿)</dt>

@@ -56,7 +56,7 @@ export default function building({ data }: any) {
           <div className="flex flex-cols justify-end">
             <div className="px-2">Generate Link</div>
             <div className="px-2">
-              <div className="bg-white w-40">
+              <div className="bg-white w-40 rounded px-2">
                 {link}
               </div>
             </div>
