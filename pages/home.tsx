@@ -1,6 +1,5 @@
 import React from "react";
 import { useRouter } from "next/router";
-import { useSession } from "next-auth/react";
 import Layout from "../components/Layout";
 import { useState } from "react";
 
@@ -9,7 +8,6 @@ type Props = {};
 export default function home({}: Props) {
   const userLocaol = localStorage.getItem("userLogin") ? JSON.parse(localStorage.getItem("userLogin")!) : "";
   const router = useRouter();
-  const { data: session } = useSession();
   const {
     query: { message, status, token, user, email },
   } = router;

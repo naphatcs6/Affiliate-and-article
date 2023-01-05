@@ -5,12 +5,16 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { IoExitOutline } from "react-icons/io5";
 import { AiOutlineMenu } from "react-icons/ai";
-import { signOut } from "next-auth/react"
+import { GoogleLogout } from 'react-google-login';
 
+const clientId = "1070375292655-f066dq1p4b8s9l7hnedbs4n73uk356ao.apps.googleusercontent.com"
 
 export default function Sidebar({ }: any) {
   const [open, setOpen] = useState(true);
-
+  const onGoogleLogoutSuccess = () => {
+    console.log("Logout Success")
+    router.push('/sign')
+  };
 
   const router = useRouter()
 
@@ -18,9 +22,9 @@ export default function Sidebar({ }: any) {
     <>
       <button
         onClick={() => setOpen(!open)}
-        className={`lg:hidden block absolute top-5 right-5 scale-150 rounded-sm hover:bg-zinc-300 bg-zinc-200`}>
+        className={`lg:hidden block absolute top-5 right-5 scale-125 rounded-sm hover:bg-zinc-300 bg-zinc-200`}>
         <AiOutlineMenu />
-        <div className={`${open ? "hidden" : "block"} `}>
+        <div className={`${open ? "hidden" : "block"} transition duration-300`}>
           <ul>
             {Sidebardata.map((item, index) => {
               return (
@@ -60,10 +64,13 @@ export default function Sidebar({ }: any) {
           <div className="p-1 scale-125"><IoExitOutline /></div>
           <button onClick={() => {
             router.push('/sign')
-            // signOut()
             // localStorage.removeItem("userLogin")
           }} className={`${!open && "hidden"}`}>Sign out</button>
         </div>
+        <GoogleLogout
+          clientId={clientId}
+          onLogoutSuccess={onGoogleLogoutSuccess}
+        />
       </div>
     </>
   );
