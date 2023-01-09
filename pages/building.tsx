@@ -32,7 +32,7 @@ export default function building({ data }: any) {
                   <img
                     src={item.image}
                     alt=""
-                    className="h-40 w-full object-cover object-center group-hover:opacity-75"
+                    className="h-40 w-full object-cover object-center"
                   />
                 </div>
                 <div className="mt-4 flex justify-between">

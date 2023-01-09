@@ -3,7 +3,7 @@ import Layout from '../components/Layout'
 import { Line } from "react-chartjs-2"
 import { dashData } from '../data/dashdata'
 import LineChart from '../components/LineChart'
-import {CategoryScale} from 'chart.js'; 
+import { CategoryScale } from 'chart.js';
 import Chart from 'chart.js/auto';
 Chart.register(CategoryScale);
 
@@ -11,18 +11,29 @@ type Props = {}
 
 export default function dashboard({ }: Props) {
   const [userData, setUserData] = useState({
-    labels: dashData.map((data) => data.month),
+    labels: dashData.map((data) => data.time),
     datasets: [
       {
-        label: "Amount",
-        data: dashData.map((data) => data.amount),
-        backgroundColor: [
-          "rgba(75,192,192,1)",
-          "#ecf0f1",
-          "#50AF95",
-          "#f3ba2f",
-          "#2a71d0",
-        ],
+        label: "Visit",
+        type: 'line' as const,
+        data: dashData.map((data) => data.visit),
+        backgroundColor: ["rgba(245,39,39,0.8)",],
+        borderColor: "red",
+        borderWidth: 2,
+      },
+      {
+        label: "Bookings",
+        type: 'line' as const,
+        data: dashData.map((data) => data.checkout),
+        backgroundColor: ["rgba(238,245,39,0.8)",],
+        borderColor: "yellow",
+        borderWidth: 2,
+      },
+      {
+        label: "Check out",
+        type: 'bar' as const,
+        data: dashData.map((data) => data.booking),
+        backgroundColor: ["rgba(85,85,85,1)",],
         borderColor: "black",
         borderWidth: 2,
       },
@@ -38,7 +49,7 @@ export default function dashboard({ }: Props) {
         </div>
         <div className="mx-auto max-w-2xl py-16 px-4 sm:py-8 sm:px-6 lg:max-w-7xl lg:px-8">
           <div className="">
-            <LineChart chartData={userData}/>
+            <LineChart chartData={userData} />
           </div>
         </div>
       </div>

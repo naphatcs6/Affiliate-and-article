@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { GoogleLogin } from 'react-google-login';
-import { gapi } from 'gapi-script'
 
 type Props = {}
 
@@ -21,15 +20,6 @@ export default function signupgoogle({ }: Props) {
   const onGoogleLoginFailure = (error) => {
     console.error(error);
   };
-  useEffect(() => {
-    const initClient = () => {
-      gapi.client.init({
-        clientId: clientId,
-        scope: ''
-      })
-    }
-    gapi.load('client:auth2',initClient)
-  })
 
   return (
     <div className="App">

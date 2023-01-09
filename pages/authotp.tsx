@@ -93,7 +93,7 @@ export default function authotp({ }: Props) {
           <div>
             <img
               className="mx-auto h-12 w-auto"
-              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+              src="Logo.svg"
               alt="Your Company"
             />
             <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
@@ -104,7 +104,7 @@ export default function authotp({ }: Props) {
             </p>
             <p className="mt-2 text-center text-sm text-gray-600">
               email - {props.email}
-              TestOTP - {props.otp}
+              {/* TestOTP - {props.otp} */}
             </p>
           </div>
           <form onSubmit={handleSubmit} className="mt-8 space-y-6">

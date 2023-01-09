@@ -31,7 +31,6 @@
     "daisyui": "^2.45.0",
     "formik": "^2.2.9",
     "formik-material-ui": "^4.0.0-alpha.2",
-    "gapi-script": "^1.2.0",
     "googleapis": "^110.0.0",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
