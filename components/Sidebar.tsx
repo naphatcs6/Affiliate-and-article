@@ -10,8 +10,9 @@ import { signOut, useSession } from "next-auth/react";
 const clientId = "1070375292655-f066dq1p4b8s9l7hnedbs4n73uk356ao.apps.googleusercontent.com"
 
 export default function Sidebar({ }: any) {
-  const [open, setOpen] = useState(true);
   const router = useRouter()
+  const [open, setOpen] = useState(true);
+  const currentRoute = router.pathname;
   const { data: session } = useSession()
 
   return (
@@ -25,7 +26,7 @@ export default function Sidebar({ }: any) {
             {Sidebardata.map((item, index) => {
               return (
                 <li key={index} className='p-1 w-full hover:bg-zinc-300 flex rounded'>
-                  <Link href={item.path} className='${} hover:bg-zinc-300 rounded flex flex-row'>
+                  <Link href={item.path} className={`rounded flex flex-row hover:bg-zinc-300`}>
                     <div className="p-1 scale-125">{item.icon}</div>
                     <div className={`${!open && "hidden"}`}>{item.title}</div>
                   </Link>
@@ -44,13 +45,14 @@ export default function Sidebar({ }: any) {
               alt="Your Company"
             /></button>
         </div>
-
         <div>
           <ul>
             {Sidebardata.map((item, index) => {
               return (
-                <li key={index} className='p-1 w-full hover:bg-zinc-300 flex rounded'>
-                  <Link href={item.path} className='${} hover:bg-zinc-300 rounded flex flex-row'>
+                <li key={index}
+                  className={`${currentRoute === item.path ? "bg-zinc-300" : "bg-zinc-200"} p-1 w-full hover:bg-zinc-300 flex rounded`}>
+                  <Link href={item.path}
+                    className='rounded flex flex-row'>
                     <div className="p-1 scale-125">{item.icon}</div>
                     <div className={`${!open && "hidden"}`}>{item.title}</div>
                   </Link>
