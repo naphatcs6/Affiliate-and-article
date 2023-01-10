@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { format } from 'path';
 import React, { useEffect, useState } from 'react'
 import Layout from '../components/Layout';
+import { validate } from '../utils/validate';
 
 type Props = {}
 
@@ -11,32 +11,37 @@ export default function editprofile({ }: Props) {
   useEffect(() => {
     setUser(localStorage.getItem("userLogin") ? JSON.parse(localStorage.getItem("userLogin")!) : "")
   }, [])
-  const [date, setDate] = useState("")
   const [user, setUser] = useState({
     email: "",
     password: "",
     otp: "",
     firstname: "",
     lastname: "",
-    dateborn: Date(),
+    dateborn: Date,
     address: "",
     province: "",
     district: "",
     postcode: "",
+    message: ""
+  })
+  const [error, setError] = useState({
+    msgfirstname: "",
+    msglastname: "",
   })
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
     setUser((values) => ({ ...values, [name]: value }));
-    
+
   };
   const handleSubmit = (event) => {
     event.preventDefault();
     localStorage.setItem('userLogin', JSON.stringify(user));
     console.log("Submit 111")
+    router.push('/profile')
   }
-  var year = new Date() 
-  console.log(year)
+  // var year = new Date()
+  // console.log(year)
   return (
     <>
       <Layout>
@@ -57,7 +62,11 @@ export default function editprofile({ }: Props) {
                       type='text'
                       value={user.firstname}
                       onChange={handleChange}
+                      required
+                      pattern="[a-zA-Z]{1,15}"
+                      title="First name should be alphabets (a to z)."
                     />
+
                   </dd>
                 </div>
                 <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -68,7 +77,11 @@ export default function editprofile({ }: Props) {
                       type='text'
                       value={user.lastname}
                       onChange={handleChange}
+                      required
+                      pattern="[a-zA-Z]{1,15}"
+                      title="Last name should be alphabets (a to z)."
                     />
+
                   </dd>
                 </div>
                 <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -144,7 +157,7 @@ export default function editprofile({ }: Props) {
                     Cancel
                   </Link>
                   <button
-                    onClick={() => { return router.push('/profile') }}
+                    // onClick={() => { return router.push('/profile') }}
                     type="submit"
                     className="group relative flex w-1/12 justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 m-8 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                   >

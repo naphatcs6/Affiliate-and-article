@@ -1,8 +1,5 @@
 import { useRouter } from 'next/router';
 import React, { useState } from 'react'
-import styles from "../styles/Home.module.css";
-import { validate } from '../utils/validate';
-import Router from "next/router";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { useEffect } from 'react';

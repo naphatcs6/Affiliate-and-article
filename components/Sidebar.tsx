@@ -36,7 +36,7 @@ export default function Sidebar({ }: any) {
           </ul>
         </div>
       </button>
-      <div className={`${open ? "w-50" : "w-16"} lg:block hidden duration-300 h-screen px-4 pt-8 pb-4 flex-col border-r-2 border-zinc-300 bg-zinc-200 `}>
+      <div className={`${open ? "w-50" : "w-16"} lg:block hidden transition duration-300 h-screen px-4 pt-8 pb-4 flex-col border-r-2 border-zinc-300 bg-zinc-200 `}>
         <div className="flex justify-center py-5">
           <button onClick={() => setOpen(!open)} className={`${!open && "rotate-180 py-0"} py-2 duration-300 rounded scale-125`}>
             <img
