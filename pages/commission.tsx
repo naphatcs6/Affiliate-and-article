@@ -27,6 +27,7 @@ export default function commission({ }: Props) {
 
   return (
     <Layout>
+      <title>Calculate Commission</title>
       <div className="bg-gray-50">
         <div className="px-4 py-5 sm:px-6 bg-white shadow">
           <h3 className="text-lg font-medium leading-6 text-gray-900">

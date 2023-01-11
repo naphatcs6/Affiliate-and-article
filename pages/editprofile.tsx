@@ -45,6 +45,7 @@ export default function editprofile({ }: Props) {
   return (
     <>
       <Layout>
+      <title>Edit Profile</title>
         <div className="bg-white shadow h-full">
           <div className="px-4 py-5 sm:px-6">
             <h3 className="text-lg font-medium leading-6 text-gray-900">Edit Personal Information</h3>

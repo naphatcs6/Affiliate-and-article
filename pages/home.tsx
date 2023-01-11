@@ -60,6 +60,7 @@ export default function home({ }: Props) {
   //   .catch(error => console.log('error', error));
   return (
     <Layout>
+      <title>Home</title>
       <div className="overflow bg-white shadow h-full">
         HOME
       </div>

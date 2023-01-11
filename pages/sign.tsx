@@ -31,6 +31,7 @@ export default function sign({ }) {
 
   return (
     <>
+      <title>Sign</title>
       <div className={`${styles.main} bg-zinc-200`}>
         <img
           className="h-12 w-auto px-2"

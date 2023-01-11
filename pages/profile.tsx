@@ -25,6 +25,7 @@ export default function profile({ }: Props) {
   return (
     <>
       <Layout>
+        <title>Profile</title>
         <div className="bg-white shadow h-full">
           <div className="px-4 py-5 sm:px-6">
             <h3 className="text-lg font-medium leading-6 text-gray-900">Personal Information</h3>
@@ -69,18 +70,18 @@ export default function profile({ }: Props) {
           </div>
         </div>
         <footer className="h-20">
-            <div className='flex flex-row justify-center'>
-              <button
-                onClick={() => { return router.push('/editprofile') }}
-                type="submit"
-                className="group relative flex w-3/12 justify-center rounded-md border border-transparent bg-indigo-600 m-8 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-              >
-                <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                </span>
-                Edit Personal Information
-              </button>
-            </div>
-          </footer>
+          <div className='flex flex-row justify-center'>
+            <button
+              onClick={() => { return router.push('/editprofile') }}
+              type="submit"
+              className="group relative flex w-3/12 justify-center rounded-md border border-transparent bg-indigo-600 m-8 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            >
+              <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+              </span>
+              Edit Personal Information
+            </button>
+          </div>
+        </footer>
       </Layout>
     </>
   );

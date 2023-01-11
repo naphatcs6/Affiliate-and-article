@@ -6,6 +6,7 @@ type Props = {}
 export default function edittag({ }: Props) {
   return (
     <Layout>
+      <title>Manage Tag</title>
       <div>edittag</div>
     </Layout>
 
