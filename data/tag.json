@@ -9,6 +9,41 @@
       "id": 2,
       "tag": "python",
       "author": "phai"
+    },
+    {
+      "tag": "java",
+      "author": "naphatcs6@gmail.com",
+      "id": 3
+    },
+    {
+      "tag": "typescript",
+      "author": "naphatcs6@gmail.com",
+      "id": 4
+    },
+    {
+      "tag": "flutter",
+      "author": "naphatcs6@gmail.com",
+      "id": 5
+    },
+    {
+      "tag": "dart",
+      "author": "naphatcs6@gmail.com",
+      "id": 6
+    },
+    {
+      "tag": "booking",
+      "author": "naphatcs6@gmail.com",
+      "id": 7
+    },
+    {
+      "tag": "sword art online",
+      "author": "naphatcs6@gmail.com",
+      "id": 8
+    },
+    {
+      "tag": "valorant",
+      "author": "naphatcs6@gmail.com",
+      "id": 9
     }
   ]
 }

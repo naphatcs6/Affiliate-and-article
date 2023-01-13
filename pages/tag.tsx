@@ -15,6 +15,22 @@ export default function tag({ data }: any) {
   let tag = ""
   let author = ""
   let tagdata = { id, tag, author };
+  let tagadd = { tag, author };
+  useEffect(() => {
+    setUser(localStorage.getItem("userLogin") ? JSON.parse(localStorage.getItem("userLogin")!) : "")
+  }, [])
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+    otp: "",
+    firstname: "",
+    lastname: "",
+    dateborn: "",
+    address: "",
+    province: "",
+    district: "",
+    postcode: "",
+  })
 
   const handleChange = (event) => {
     event.preventDefault();
@@ -23,6 +39,55 @@ export default function tag({ data }: any) {
     tagdata = { id, tag, author };
     console.log(tagdata)
   };
+  const handleCreate = (event) => {
+    event.preventDefault();
+    const value = event.target.value;
+    tag = value
+    author = user.email
+    tagadd = { tag, author };
+    console.log(tagadd)
+  };
+
+  const addTag = () => {
+    MySwal.fire({
+      html: <div>
+        <p className='p-4'>Add Tag</p>
+        <form autoComplete="off">
+          <input
+            className='w-3/6 appearance-none rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
+            name='tag'
+            type='text'
+            onChange={handleCreate}
+          />
+        </form>
+      </div>,
+      confirmButtonText: 'Add',
+      showCancelButton: true,
+      preConfirm: () => {
+        if (tag !== "") {
+          fetch("http://localhost:8000/tag", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify(tagadd)
+          }).catch((err) => {
+            console.log(err.message)
+          })
+          router.push("/tag")
+        } else {
+          MySwal.showValidationMessage(
+            `Request failed`
+          )
+        }
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        MySwal.fire({
+          title: 'Add tag success!!',
+          icon: 'success'
+        })
+      }
+    })
+  }
 
   const editTag = (e) => {
     console.log(e)
@@ -44,10 +109,13 @@ export default function tag({ data }: any) {
             type='text'
             placeholder={e.tag}
             onChange={handleChange}
+            required
+            pattern="[a-zA-Z]{1,15}"
+            title="First name should be alphabets (a to z)."
           />
         </form>
       </div>
-    }).then(()=>{
+    }).then(() => {
       console.log(tagdata)
       console.log(tag)
       fetch("http://localhost:8000/tag/" + e.id, {
@@ -56,6 +124,33 @@ export default function tag({ data }: any) {
         body: JSON.stringify(tagdata)
       })
       router.push("/tag")
+    })
+  }
+
+  const removeTag = (e) => {
+    MySwal.fire({
+      title: `You want to delete?`,
+      text: `${e.tag}`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        MySwal.fire({
+          title: 'Deleted!',
+          text: `${e.tag}`,
+          icon: 'success',
+        })
+        fetch("http://localhost:8000/tag/" + e.id, {
+          method: "DELETE"
+        }).then((res) => {
+        }).catch((err) => {
+          console.log(err.message)
+        })
+        router.push("/tag")
+      }
     })
   }
 
@@ -75,9 +170,10 @@ export default function tag({ data }: any) {
               placeholder='Search' />
             <button
               className="m-2 flex justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-3 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              onClick={addTag}
             >Add tag</button>
           </div>
-          <div className="grid grid-cols-1 gap-y-10 gap-x-2 sm:grid-cols-2 xl:grid-cols-4 xl:gap-x-8">
+          <div className="grid grid-cols-1 gap-y-5 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 xl:gap-x-8 mt-5">
             {data.map((item, index) => {
               return (
                 <div key={index} className="w-fit group rounded-full flex flex-row border border-gray-300 hover:bg-indigo-50">
@@ -87,7 +183,9 @@ export default function tag({ data }: any) {
                     }} className="px-3 text-sm font-medium text-gray-900">
                       {item.tag}
                     </button>
-                    <button className='scale-125'>
+                    <button onClick={() => [
+                      removeTag(item)
+                    ]} className='scale-125'>
                       <RxCross2 />
                     </button>
                   </div>
