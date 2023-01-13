@@ -62,7 +62,7 @@ export default function commission({ }: Props) {
               <div className="py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">Commission (%)</dt>
                 <dd className="text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                  <select name="commission" onChange={(e)=>{setValue(e.target.value)}} value={value} className='w-3/6 rounded bg-white border border-gray-300 px-3 py-2'>
+                  <select name="commission" onChange={(e) => { setValue(e.target.value) }} value={value} className='w-3/6 rounded bg-white border border-gray-300 px-3 py-2'>
                     <option value='4'>{`Tier 1: 4% Commission (<50 bookings)`}</option>
                     <option value='4.5'>{`Tier 2: 4.5% Commission (50-99bookings)`}</option>
                     <option value='5'>{`Tier 3: 5% Commission (100-199 bookings)`}</option>

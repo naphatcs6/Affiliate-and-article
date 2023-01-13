@@ -46,7 +46,7 @@ export const Sidebardata = [
   },
   {
     title: "Manage Tag",
-    path: "/edittag",
+    path: "/tag",
     pName: "nav-text",
     icon: <BsTags />
   },
