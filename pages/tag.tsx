@@ -4,6 +4,8 @@ import { RxCross2 } from "react-icons/rx";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { useRouter } from "next/router";
+import Router from "next/router";
+
 
 export default function tag({ data }: any) {
   // const [id, setId] = useState(0)
@@ -11,6 +13,10 @@ export default function tag({ data }: any) {
   // const [author, setAuthor] = useState("")
   const router = useRouter();
   const MySwal = withReactContent(Swal);
+  const [dataTag, setTag] = useState(data)
+  const [search, setSearch] = useState("")
+  const { dataSearch } = router.query
+
   let id = 0
   let tag = ""
   let author = ""
@@ -18,6 +24,9 @@ export default function tag({ data }: any) {
   let tagadd = { tag, author };
   useEffect(() => {
     setUser(localStorage.getItem("userLogin") ? JSON.parse(localStorage.getItem("userLogin")!) : "")
+    router.push({
+      query: { dataSearch: "" },
+    })
   }, [])
   const [user, setUser] = useState({
     email: "",
@@ -47,6 +56,16 @@ export default function tag({ data }: any) {
     tagadd = { tag, author };
     console.log(tagadd)
   };
+  const handleSearch = async (event) => {
+    event.preventDefault();
+    const value = event.target.value;
+    await router.push({
+      pathname: router.pathname,
+      query: { dataSearch: value },
+    })
+    console.log(dataSearch)
+    setSearch(value)
+  };
 
   const addTag = () => {
     MySwal.fire({
@@ -72,7 +91,10 @@ export default function tag({ data }: any) {
           }).catch((err) => {
             console.log(err.message)
           })
-          router.push("/tag")
+          router.push({
+            pathname: router.pathname,
+            query: { dataSearch: "" },
+          })
         } else {
           MySwal.showValidationMessage(
             `Request failed`
@@ -115,7 +137,13 @@ export default function tag({ data }: any) {
           />
         </form>
       </div>
-    }).then(() => {
+    }).then((result) => {
+      if (result.isConfirmed) {
+        MySwal.fire({
+          title: 'Edit tag success!!',
+          icon: 'success'
+        })
+      }
       console.log(tagdata)
       console.log(tag)
       fetch("http://localhost:8000/tag/" + e.id, {
@@ -123,7 +151,10 @@ export default function tag({ data }: any) {
         headers: { "content-type": "application/json" },
         body: JSON.stringify(tagdata)
       })
-      router.push("/tag")
+      router.push({
+        pathname: router.pathname,
+        query: { dataSearch: "" },
+      })
     })
   }
 
@@ -149,7 +180,10 @@ export default function tag({ data }: any) {
         }).catch((err) => {
           console.log(err.message)
         })
-        router.push("/tag")
+        router.push({
+          pathname: router.pathname,
+          query: { dataSearch: "" },
+        })
       }
     })
   }
@@ -167,13 +201,17 @@ export default function tag({ data }: any) {
           <div className='flex flex-row'>
             <input
               className="w-6/12 m-2 rounded-md border border-gray-300 px-3 py-3 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 text-sm font-medium"
-              placeholder='Search' />
+              placeholder='Search'
+              name='search'
+              type='text'
+              onChange={handleSearch}
+            />
             <button
               className="m-2 flex justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-3 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               onClick={addTag}
             >Add tag</button>
           </div>
-          <div className="grid grid-cols-1 gap-y-5 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 xl:gap-x-8 mt-5">
+          <div className="flex flex-wrap">
             {data.map((item, index) => {
               return (
                 <div key={index} className="w-fit group rounded-full flex flex-row border border-gray-300 hover:bg-indigo-50">
@@ -199,11 +237,18 @@ export default function tag({ data }: any) {
   )
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
   // Fetch data from external API
-  const res = await fetch('http://localhost:8000/tag');
+  const { dataSearch } = context.query
+  const res = await fetch(`http://localhost:8000/tag?q=${dataSearch}`);
   const data = await res.json();
-  console.log(data);
+  // console.log(data);
+  console.log();
   // Pass data to the page via props
-  return { props: { data } };
+  return {
+    props:
+    {
+      data,
+    }
+  };
 }
