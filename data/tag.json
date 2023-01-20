@@ -54,6 +54,22 @@
       "id": 12,
       "tag": "cat",
       "author": "naphatcs6@gmail.com"
+    },
+    {
+      "tag": "บทความ",
+      "author": "naphatcs6@gmail.com",
+      "id": 13
+    }
+  ],
+  "article": [
+    {
+      "id": 1,
+      "title": "Hello World",
+      "images": "",
+      "content": "<p>บทความ</p>",
+      "author": "all2bot123@gmail.com",
+      "date": "",
+      "tags": ["javascript"]
     }
   ]
 }

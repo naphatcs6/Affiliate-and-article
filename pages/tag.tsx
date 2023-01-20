@@ -4,13 +4,10 @@ import { RxCross2 } from "react-icons/rx";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { useRouter } from "next/router";
-import Router from "next/router";
+import { BsSearch } from "react-icons/bs"
 
 
 export default function tag({ data }: any) {
-  // const [id, setId] = useState(0)
-  // const [tag, setTag] = useState("")
-  // const [author, setAuthor] = useState("")
   const router = useRouter();
   const MySwal = withReactContent(Swal);
   const [dataTag, setTag] = useState(data)
@@ -63,7 +60,7 @@ export default function tag({ data }: any) {
       pathname: router.pathname,
       query: { dataSearch: value },
     })
-    console.log(dataSearch)
+    // console.log(dataSearch)
     setSearch(value)
   };
 
@@ -214,8 +211,8 @@ export default function tag({ data }: any) {
           <div className="flex flex-wrap">
             {data.map((item, index) => {
               return (
-                <div key={index} className="w-fit group rounded-full flex flex-row border border-gray-300 hover:bg-indigo-50">
-                  <div className='p-2'>
+                <div key={index} className="m-2 w-fit group rounded-full flex flex-row border border-gray-300 hover:bg-indigo-50">
+                  <div className='p-2 flex flex-row'>
                     <button onClick={() => {
                       editTag(item)
                     }} className="px-3 text-sm font-medium text-gray-900">
