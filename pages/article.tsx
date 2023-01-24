@@ -27,6 +27,13 @@ export default function article({ data }: any) {
     })
     setSearch(value)
   };
+  const handleBtnSearch = async (event) => {
+    await router.push({
+      pathname: router.pathname,
+      query: { dataSearch: event },
+    })
+    setSearch(event)
+  };
 
   const removeArticle = (e) => {
     MySwal.fire({
@@ -63,9 +70,16 @@ export default function article({ data }: any) {
       <title>Article</title>
       <div className="bg-gray-50">
         <div className="px-4 py-5 sm:px-6 bg-white shadow">
-          <h3 className="text-lg font-medium leading-6 text-gray-900">
-            Article
-          </h3>
+          <button onClick={() => {
+            router.push({
+              pathname: router.pathname,
+              query: { dataSearch: "" },
+            })
+          }}>
+            <h3 className="text-lg font-medium leading-6 text-gray-900">
+              Article
+            </h3>
+          </button>
         </div>
         <div className="mx-auto max-w-2xl py-16 px-4 sm:py-8 sm:px-6 lg:max-w-7xl lg:px-8">
           <div className='flex flex-row'>
@@ -96,10 +110,28 @@ export default function article({ data }: any) {
                         src={item.images}
                       />
                     </div>
-                    <p
-                      className='text-2xl m-8 font-bold'
-                    >{item.title}</p>
+                    <div className='flex flex-col'>
+                      <div className='text-2xl m-8 font-bold'>
+                        {item.title}
+                      </div>
+                      <div className="mt-auto mr-auto m-2 text-sm font-medium text-gray-900 flex flex-row">
+                        {item.tags.map((tag, index) => {
+                          return (
+                            <div key={index}>
+                              <button className="m-2 p-2 group rounded flex flex-row border border-gray-300 hover:bg-indigo-50"
+                                onClick={() => {
+                                  handleBtnSearch(tag)
+                                }}
+                              >
+                                {tag}
+                              </button>
+                            </div>
+                          )
+                        })}
+                      </div>
+                    </div>
                   </div>
+
                   <div className='ml-auto m-5 flex flex-col'>
                     <button
                       className='m-5 scale-125'
