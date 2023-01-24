@@ -201,6 +201,7 @@ export default function tag({ data }: any) {
               placeholder='Search'
               name='search'
               type='text'
+              autoComplete='off'
               onChange={handleSearch}
             />
             <button
@@ -211,7 +212,7 @@ export default function tag({ data }: any) {
           <div className="flex flex-wrap">
             {data.map((item, index) => {
               return (
-                <div key={index} className="m-2 w-fit group rounded-full flex flex-row border border-gray-300 hover:bg-indigo-50">
+                <div key={index} className="m-2 w-fit group rounded flex flex-row border border-gray-300 hover:bg-indigo-50">
                   <div className='p-2 flex flex-row'>
                     <button onClick={() => {
                       editTag(item)

@@ -4,16 +4,18 @@ import { Editor } from '@tinymce/tinymce-react';
 import { snackbarContentClasses } from '@mui/material';
 import { AiOutlineFileImage } from 'react-icons/ai'
 import { useRouter } from 'next/router';
-import tag from './tag';
+import { RxCross2 } from "react-icons/rx";
 
-type Props = {}
-
-export default function addarticle({ }: Props) {
+export default function addarticle({ data }: any) {
   const [value, setValue] = useState('');
-  const editorRef = useRef(null);
   const [images, setImage] = useState("");
   const router = useRouter();
   const { dataSearch } = router.query
+  const [search, setSearch] = useState([])
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [tags, setTags] = useState<any>([])
+  const [open, setOpen] = useState(false);
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -26,42 +28,55 @@ export default function addarticle({ }: Props) {
     district: "",
     postcode: "",
   })
+  let id = 0
+  // let title = ""
+  // let images = ""
+  // let content = ""
+  let author = ""
+  let date = new Date
+  // let tags = [""]
+  let articleAdd = { title, images, content, author, date, tags };
   useEffect(() => {
     setUser(localStorage.getItem("userLogin") ? JSON.parse(localStorage.getItem("userLogin")!) : "")
     router.push({
       query: { dataSearch: "" },
     })
   }, [])
-  let id = 0
-  let title = ""
-  // let images = ""
-  let content = ""
-  let author = ""
-  let date = new Date
-  let tags = []
-  let articleAdd = { title, images, content, author, date, tags };
 
-  const handleEditChange = (e) => {
-    console.log(e)
-    content = e
-    console.log(content)
-    setValue(e)
-  }
   const handleEditorChange = (contents: any, editor: any) => {
     console.log("Content was updated:", contents);
-    content = contents
+    setContent(contents)
     console.log(content);
     articleAdd = { title, images, content, author, date, tags };
-
+  };
+  const handleTitle = (event) => {
+    const value = event.target.value;
+    setTitle(value)
+    articleAdd = { title, images, content, author, date, tags };
   };
 
+  const handleSearch = async (event) => {
+    event.preventDefault();
+    const value = event.target.value;
+    await router.push({
+      pathname: router.pathname,
+      query: { dataSearch: value },
+    })
+    setSearch(value)
+  };
+
+  const handleTag = (event) => {
+    console.log(event)
+    setTags([...tags, event])
+    articleAdd = { title, images, content, author, date, tags };
+  }
+  const handleRemoveTag = (event) => {
+    console.log(event)
+    setTags(tags.filter(item => item !== event));
+    articleAdd = { title, images, content, author, date, tags };
+  }
 
   const handleFileUpload = () => {
-    // const file = event.target.files[0];
-    // const url = URL.createObjectURL(file);
-    // console.log(file)
-    // console.log(url)
-    // setImage(url);
     let input = document.createElement('input');
     input.setAttribute('type', 'file');
     input.setAttribute('accept', 'image/*');
@@ -89,6 +104,7 @@ export default function addarticle({ }: Props) {
     }).catch((err) => {
       console.log(err.message)
     })
+    router.push('/article')
   }
   return (
     <Layout>
@@ -101,12 +117,13 @@ export default function addarticle({ }: Props) {
         </div>
         <div className="mx-auto max-w-2xl py-16 px-4 sm:py-8 sm:px-6 lg:max-w-7xl lg:px-8">
           <div className='flex flex-row mb-5'>
-            <div className='w-4/12'>
+            <div className='w-6/12'>
               <input
                 className="w-full m-2 rounded-md border border-gray-300 px-3 py-3 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 text-sm font-medium"
                 placeholder='Title'
                 name='title'
                 type='text'
+                onChange={handleTitle}
               />
               <button
                 className="w-full m-2 mb-4 flex justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-3 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
@@ -148,10 +165,64 @@ export default function addarticle({ }: Props) {
             }}
             onEditorChange={handleEditorChange}
           />
-          <button
-            className="m-2 flex justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-3 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-            onClick={addArt}
-          >Add Article</button>
+          <div>
+            <div className='p-2 flex flex-wrap'>
+              {tags.map((item, index) => {
+                return (
+                  <div key={index} className="m-2 w-fit group rounded flex flex-row border border-gray-300 hover:bg-indigo-50">
+                    <div className='p-2 flex flex-row'>
+                      <div className="px-3 text-sm font-medium text-gray-900">
+                        {item}
+                      </div>
+                      <button onClick={() => [
+                        handleRemoveTag(item)
+                      ]} className='scale-125'>
+                        <RxCross2 />
+                      </button>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+            <div
+              className="w-full m-2 rounded-md border border-gray-300 px-3 py-3 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 text-sm font-medium"
+            >
+              <input
+                className='outline-none'
+                placeholder='Search tag'
+                name='search'
+                type='text'
+                autoComplete='off'
+                onChange={handleSearch}
+              />
+              <div className={`${dataSearch ? "max-h-40" : "h-0"} overflow-y-auto`}>
+                {data.map((item, index) => {
+                  return (
+                    <div key={index} className='m-2 p-2 w-fit group rounded flex flex-row border border-gray-300 hover:bg-indigo-50'>
+                      <button onClick={() => {
+                        handleTag(item.tag)
+                      }}>
+                        {item.tag}
+                      </button>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          </div>
+          <div className='flex flex-row'>
+            <button
+              className="m-5 flex justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-3 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              onClick={addArt}
+            >Add Article</button>
+            <button
+              className="m-5 flex justify-center rounded-md border border-transparent bg-gray-600 py-3 px-3 text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+              onClick={()=>{
+                router.push('/article')
+              }}
+            >Cancel</button>
+          </div>
+
         </div>
       </div>
     </Layout>
