@@ -3,20 +3,47 @@ import React, { useEffect, useState } from 'react'
 import Layout from '../components/Layout'
 import { RiFileEditLine } from 'react-icons/ri'
 import { BsFillTrashFill } from 'react-icons/bs'
+import { RxAvatar } from 'react-icons/rx'
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import Router from "next/router";
 
 export default function article({ data }: any) {
   const router = useRouter();
   const MySwal = withReactContent(Swal);
   const [search, setSearch] = useState("")
   const { dataSearch } = router.query
+  // const [idDetail, setIddetail] = useState()
+  let idDetail = 0;
 
   useEffect(() => {
     router.push({
       query: { dataSearch: "" },
     })
   }, [])
+  const handleDetail = (event) => {
+    console.log(event)
+    idDetail = event
+    console.log(idDetail)
+    Router.push({
+      pathname: "/articleDetail",
+      query: {
+        idDetail
+      }
+    })
+  };
+
+  const handleEdit = (event) => {
+    console.log(event)
+    idDetail = event
+    console.log(idDetail)
+    Router.push({
+      pathname: "/editArticle",
+      query: {
+        idDetail
+      }
+    })
+  };
 
   const handleSearch = async (event) => {
     event.preventDefault();
@@ -104,16 +131,24 @@ export default function article({ data }: any) {
                 <div key={index} className="m-2 w-9/12 h-60 group rounded flex flex-row border border-gray-300 hover:bg-indigo-50">
                   <div className='flex flex-row'>
                     <div className='mt-auto mb-auto ml-5 h-40 w-40'>
-                      <img
-                        className='object-cover h-40 w-full'
-                        // width="150"
-                        src={item.images}
-                      />
+                      <button onClick={() => {
+                        handleDetail(item.id)
+                      }}>
+                        <img
+                          className='object-cover h-40 w-full'
+                          // width="150"
+                          src={item.images}
+                        />
+                      </button>
                     </div>
                     <div className='flex flex-col'>
-                      <div className='text-2xl m-8 font-bold'>
-                        {item.title}
-                      </div>
+                      <button onClick={() => {
+                        handleDetail(item.id)
+                      }}>
+                        <div className='text-2xl m-8 font-bold'>
+                          {item.title}
+                        </div>
+                      </button>
                       <div className="mt-auto mr-auto m-2 text-sm font-medium text-gray-900 flex flex-row">
                         {item.tags.map((tag, index) => {
                           return (
@@ -131,12 +166,11 @@ export default function article({ data }: any) {
                       </div>
                     </div>
                   </div>
-
                   <div className='ml-auto m-5 flex flex-col'>
                     <button
                       className='m-5 scale-125'
                       onClick={() => {
-                        console.log("Edit")
+                        handleEdit(item.id)
                       }}
                     >
                       <RiFileEditLine className='scale-125' />
