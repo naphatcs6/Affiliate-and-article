@@ -217,7 +217,7 @@ export default function addarticle({ data }: any) {
             >Add Article</button>
             <button
               className="m-5 flex justify-center rounded-md border border-transparent bg-gray-600 py-3 px-3 text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
-              onClick={()=>{
+              onClick={() => {
                 router.push('/article')
               }}
             >Cancel</button>
