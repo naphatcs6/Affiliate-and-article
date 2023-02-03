@@ -36,7 +36,7 @@ export default function Sidebar({ }: any) {
           </ul>
         </div>
       </button>
-      <div className={`${open ? "w-50" : "w-16"} lg:block hidden transition duration-300 h-screen px-4 pt-8 pb-4 flex-col border-r-2 border-zinc-300 bg-zinc-200 `}>
+      <div className={`${open ? "w-50" : "w-16"} lg:block hidden transition duration-300 h-screen px-4 pt-8 pb-4 flex-col border-r-2 border-zinc-300 bg-white `}>
         <div className="flex justify-center py-5">
           <button onClick={() => setOpen(!open)} className={`${!open && "rotate-180 py-0"} py-2 duration-300 rounded scale-125`}>
             <img
@@ -50,7 +50,7 @@ export default function Sidebar({ }: any) {
             {Sidebardata.map((item, index) => {
               return (
                 <li key={index}
-                  className={`${currentRoute === item.path ? "bg-zinc-300" : "bg-zinc-200"} p-1 w-full hover:bg-zinc-300 flex rounded`}>
+                  className={`${currentRoute === item.path ? "bg-zinc-300" : "bg-white"} p-1 w-full hover:bg-zinc-300 flex rounded`}>
                   <Link href={item.path}
                     className='rounded flex flex-row'>
                     <div className="p-1 scale-125">{item.icon}</div>

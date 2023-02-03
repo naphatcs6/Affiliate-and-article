@@ -1,12 +1,12 @@
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import Layout from '../components/Layout'
-
+import { RxAvatar } from 'react-icons/rx'
 
 
 export default function articleDetail({ data }: any) {
   const router = useRouter()
-
+  let dateString = "";
   const {
     query: {
       idDetail
@@ -35,16 +35,33 @@ export default function articleDetail({ data }: any) {
           </div>
           <div className='flex flex-row justify-center'>
             {data.map((item, index) => {
+              dateString = item.date
+              const date = new Date(dateString);
+              const formattedDate = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
               return (
-                <div key={index}>
-                  <div className='text-2xl m-8 font-bold'>
+                <div key={index} className='flex flex-col justify-center m-5'>
+                  <div className='flex flex-row ml-12'>
+                    <img
+                      className="h-12 w-auto px-1"
+                      src="avatar-batman.svg"
+                      alt="avatar"
+                    />
+                    <div className='flex flex-col'>
+                      <p>{item.author}</p>
+                      <p className='text-gray-500'>{formattedDate}</p>
+                    </div>
+                  </div>
+                  <div className='text-2xl m-8 font-medium mr-auto ml-auto'>
                     {item.title}
                   </div>
                   <img
-                    width='150'
+                    className='mr-auto ml-auto'
+                    width='250'
                     src={item.images}
                   />
-                  <div dangerouslySetInnerHTML={{ __html: item.content }} />
+                  <div
+                    className='m-10'
+                    dangerouslySetInnerHTML={{ __html: item.content }} />
                 </div>
               )
             })}

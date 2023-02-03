@@ -14,6 +14,11 @@ export default function article({ data }: any) {
   const [search, setSearch] = useState("")
   const { dataSearch } = router.query
   // const [idDetail, setIddetail] = useState()
+  let dateString = "";
+  const date = new Date(dateString);
+  // const formattedDate = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+
   let idDetail = 0;
 
   useEffect(() => {
@@ -127,15 +132,19 @@ export default function article({ data }: any) {
           </div>
           <div className="flex flex-col">
             {data.map((item, index) => {
+              dateString = item.date
+              const date = new Date(dateString);
+              const formattedDate = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
               return (
                 <div key={index} className="m-2 w-9/12 h-60 group rounded flex flex-row border border-gray-300 hover:bg-indigo-50">
                   <div className='flex flex-row'>
-                    <div className='mt-auto mb-auto ml-5 h-40 w-40'>
-                      <button onClick={() => {
-                        handleDetail(item.id)
-                      }}>
+                    <div className='mt-auto mb-auto ml-8 h-40 w-60'>
+                      <button
+                        onClick={() => {
+                          handleDetail(item.id)
+                        }}>
                         <img
-                          className='object-cover h-40 w-full'
+                          className='object-cover h-40 w-full rounded'
                           // width="150"
                           src={item.images}
                         />
@@ -145,24 +154,37 @@ export default function article({ data }: any) {
                       <button onClick={() => {
                         handleDetail(item.id)
                       }}>
-                        <div className='text-2xl m-8 font-bold'>
+                        <div className='mt-8 text-2xl ml-8 font-bold font-mono'>
                           {item.title}
                         </div>
                       </button>
-                      <div className="mt-auto mr-auto m-2 text-sm font-medium text-gray-900 flex flex-row">
-                        {item.tags.map((tag, index) => {
-                          return (
-                            <div key={index}>
-                              <button className="m-2 p-2 group rounded flex flex-row border border-gray-300 hover:bg-indigo-50"
-                                onClick={() => {
-                                  handleBtnSearch(tag)
-                                }}
-                              >
-                                {tag}
-                              </button>
-                            </div>
-                          )
-                        })}
+                      <div className="mt-auto mr-auto m-2 text-sm font-medium text-gray-900 flex flex-col">
+                        <div className='flex flex-row justify-items-end mb-auto mr-auto '>
+                          <RxAvatar className='scale-150 ml-8 mr-2 ' />
+                          <p className='font-sans font-light text-slate-700'>
+                            {item.author}
+                          </p>
+                          <div>
+                            <p className='font-sans font-light text-slate-700 ml-8 mr-2'>
+                              {formattedDate}
+                            </p>
+                          </div>
+                        </div>
+                        <div className='flex flex-row ml-8'>
+                          {item.tags.map((tag, index) => {
+                            return (
+                              <div key={index}>
+                                <button className="m-2 p-2 group rounded flex flex-row border border-gray-300 hover:bg-indigo-50"
+                                  onClick={() => {
+                                    handleBtnSearch(tag)
+                                  }}
+                                >
+                                  {tag}
+                                </button>
+                              </div>
+                            )
+                          })}
+                        </div>
                       </div>
                     </div>
                   </div>

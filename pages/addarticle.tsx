@@ -6,6 +6,7 @@ import { AiOutlineFileImage } from 'react-icons/ai'
 import { useRouter } from 'next/router';
 import { RxCross2 } from "react-icons/rx";
 
+
 export default function addarticle({ data }: any) {
   const [value, setValue] = useState('');
   const [images, setImage] = useState("");
@@ -16,6 +17,7 @@ export default function addarticle({ data }: any) {
   const [content, setContent] = useState("");
   const [tags, setTags] = useState<any>([])
   const [open, setOpen] = useState(false);
+  const [author, setAuthor] = useState("");
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -32,12 +34,16 @@ export default function addarticle({ data }: any) {
   // let title = ""
   // let images = ""
   // let content = ""
-  let author = ""
+  // let author = ""
   let date = new Date
   // let tags = [""]
   let articleAdd = { title, images, content, author, date, tags };
   useEffect(() => {
-    setUser(localStorage.getItem("userLogin") ? JSON.parse(localStorage.getItem("userLogin")!) : "")
+    const userLocal = localStorage.getItem("userLogin") ? JSON.parse(localStorage.getItem("userLogin")!) : "";
+    setAuthor(userLocal.email)
+    console.log(author)
+    articleAdd = { title, images, content, author, date, tags };
+    console.log(articleAdd)
     router.push({
       query: { dataSearch: "" },
     })
@@ -97,6 +103,7 @@ export default function addarticle({ data }: any) {
   };
 
   const addArt = () => {
+    console.log(articleAdd)
     fetch("http://localhost:8000/article", {
       method: "POST",
       headers: { "content-type": "application/json" },

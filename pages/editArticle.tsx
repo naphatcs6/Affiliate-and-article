@@ -12,11 +12,11 @@ export default function editArticle({ data }: any) {
   const [title, setTitle] = useState("")
   const [images, setImages] = useState("")
   const [content, setContent] = useState("")
-  const [date, setDate] = useState("")
+  const [date, setDate] = useState<any>("")
   const [author, setAuthor] = useState("")
   const [tags, setTags] = useState<any>([])
   let articleEdit = { id, title, images, content, author, date, tags };
-  const [array, setArray] = useState([1, 2, 3]);
+
   const {
     query: {
       idDetail
