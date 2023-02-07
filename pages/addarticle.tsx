@@ -5,9 +5,12 @@ import { snackbarContentClasses } from '@mui/material';
 import { AiOutlineFileImage } from 'react-icons/ai'
 import { useRouter } from 'next/router';
 import { RxCross2 } from "react-icons/rx";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 
 export default function addarticle({ data }: any) {
+  const MySwal = withReactContent(Swal);
   const [value, setValue] = useState('');
   const [images, setImage] = useState("");
   const router = useRouter();
@@ -102,6 +105,24 @@ export default function addarticle({ data }: any) {
     input.click();
   };
 
+  const handleIamge = () => {
+    MySwal.fire({
+      html: <div>
+        <p className='p-4'>Add link image</p>
+        <form autoComplete="off">
+          <input
+            className='w-3/6 appearance-none rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
+            name='images'
+            type='text'
+            onChange={(e)=>{
+              setImage(e.target.value)
+            }}
+          />
+        </form>
+      </div>,
+    })
+  };
+
   const addArt = () => {
     console.log(articleAdd)
     fetch("http://localhost:8000/article", {
@@ -132,10 +153,15 @@ export default function addarticle({ data }: any) {
                 type='text'
                 onChange={handleTitle}
               />
-              <button
+              {/* <button
                 className="w-full m-2 mb-4 flex justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-3 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 onClick={handleFileUpload}>
                 Choose cover image
+              </button> */}
+              <button
+                className="w-full m-2 mb-4 flex justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-3 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                onClick={handleIamge}>
+                Add cover image
               </button>
             </div>
             <div className='ml-20 rounded-lg border-4 border-dashed border-gray-200'>

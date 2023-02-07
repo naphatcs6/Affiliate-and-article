@@ -9,22 +9,16 @@ import { BsTags } from "react-icons/bs"
 
 export const Sidebardata = [
   {
-    title: "Home",
-    path: "/home",
+    title: "Dashboard",
+    path: "/dashboard",
     pName: "nav-text",
-    icon: <AiOutlineHome />
+    icon: <VscGraphLine />
   },
   {
     title: "Profile",
     path: "/profile",
     pName: "nav-text",
     icon: <AiOutlineUser />
-  },
-  {
-    title: "Dashboard",
-    path: "/dashboard",
-    pName: "nav-text",
-    icon: <VscGraphLine />
   },
   {
     title: "Building",

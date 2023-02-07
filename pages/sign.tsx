@@ -41,7 +41,7 @@ export default function sign({ }) {
         <h2 className="mb-10 text-center text-3xl font-bold tracking-tight text-gray-900">
           Sign your account
         </h2>
-        <div className="bg-white border-zinc-300 rounded flex justify-center items-center flex-col w-1/3 py-14">
+        <div className="bg-white border-zinc-300 drop-shadow-2xl rounded flex justify-center items-center flex-col w-1/3 py-14">
           <Link
             className="w-2/5 flex justify-center m-2 first-letter:bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
             href="/signin"

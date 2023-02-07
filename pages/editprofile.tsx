@@ -67,7 +67,6 @@ export default function editprofile({ }: Props) {
                       pattern="[a-zA-Z]{1,15}"
                       title="First name should be alphabets (a to z)."
                     />
-
                   </dd>
                 </div>
                 <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">

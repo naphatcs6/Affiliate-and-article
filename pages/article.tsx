@@ -7,6 +7,7 @@ import { RxAvatar } from 'react-icons/rx'
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import Router from "next/router";
+import PaginateItem from '../components/PaginateItem';
 
 export default function article({ data }: any) {
   const router = useRouter();
@@ -17,8 +18,11 @@ export default function article({ data }: any) {
   let dateString = "";
   const date = new Date(dateString);
   // const formattedDate = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(5);
+  const lastPostIndex = currentPage * postsPerPage;
+  const firstPostIndex = lastPostIndex - postsPerPage;
+  const currentPosts = data.slice(firstPostIndex, lastPostIndex);
   let idDetail = 0;
 
   useEffect(() => {
@@ -131,7 +135,7 @@ export default function article({ data }: any) {
             >Write Article</button>
           </div>
           <div className="flex flex-col">
-            {data.map((item, index) => {
+            {currentPosts.map((item, index) => {
               dateString = item.date
               const date = new Date(dateString);
               const formattedDate = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
@@ -211,6 +215,14 @@ export default function article({ data }: any) {
               )
             })}
           </div>
+        </div>
+        <div className='flex justify-center'>
+          <PaginateItem
+            totalPosts={data.length}
+            postsPerPage={postsPerPage}
+            setCurrentPage={setCurrentPage}
+            currentPage={currentPage}
+          />
         </div>
       </div>
     </Layout>

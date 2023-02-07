@@ -25,12 +25,26 @@ export default function authotp({ }: Props) {
       email,
       password,
       otp,
+      firstname,
+      lastname,
+      dateborn,
+      address,
+      province,
+      district,
+      postcode
     }
   } = router
   const props = {
     email,
     password,
     otp,
+    firstname,
+    lastname,
+    dateborn,
+    address,
+    province,
+    district,
+    postcode
   }
   useEffect(() => {
     localStorage.setItem('userLogin', JSON.stringify(inputs));
@@ -50,35 +64,35 @@ export default function authotp({ }: Props) {
       password: props.password,
     });
 
-    if(inputs.otp == props.otp){
+    if (inputs.otp == props.otp) {
       console.log("OTP is True")
       fetch("http://localhost:8080/user-api/user/register", {
-      method: "POST",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow",
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        console.log(result);
-        if (result.status === "ok") {
-          setInputs({...inputs, email: props.email, password: props.password})
-          
-          MySwal.fire({
-            html: <i>{result.message}</i>,
-            icon: "success",
-          }).then((value) => {
-            return router.push('/home')
-          });
-        } else {
-          MySwal.fire({
-            html: <i>{result.message}</i>,
-            icon: "error",
-          });
-        }
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow",
       })
-      .catch((error) => console.log("error", error));
-    }else{
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result);
+          if (result.status === "ok") {
+            setInputs({ ...inputs, email: props.email, password: props.password })
+
+            MySwal.fire({
+              html: <i>{result.message}</i>,
+              icon: "success",
+            }).then((value) => {
+              return router.push('/home')
+            });
+          } else {
+            MySwal.fire({
+              html: <i>{result.message}</i>,
+              icon: "error",
+            });
+          }
+        })
+        .catch((error) => console.log("error", error));
+    } else {
       console.log("oTP is False")
     }
   }
