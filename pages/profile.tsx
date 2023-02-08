@@ -10,9 +10,9 @@ export default function profile({ }: Props) {
     setUser(localStorage.getItem("userLogin") ? JSON.parse(localStorage.getItem("userLogin")!) : "")
   }, [])
   const [user, setUser] = useState({
+    id: "",
     email: "",
     password: "",
-    otp: "",
     firstname: "",
     lastname: "",
     dateborn: "",
@@ -21,7 +21,6 @@ export default function profile({ }: Props) {
     district: "",
     postcode: "",
   })
-
   return (
     <>
       <Layout>

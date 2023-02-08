@@ -4,17 +4,16 @@ import React, { useEffect, useState } from 'react'
 import Layout from '../components/Layout';
 import { validate } from '../utils/validate';
 
-type Props = {}
 
-export default function editprofile({ }: Props) {
+export default function editprofile({ data }: any) {
   const router = useRouter()
   useEffect(() => {
     setUser(localStorage.getItem("userLogin") ? JSON.parse(localStorage.getItem("userLogin")!) : "")
   }, [])
   const [user, setUser] = useState({
+    id: "",
     email: "",
     password: "",
-    otp: "",
     firstname: "",
     lastname: "",
     dateborn: Date,
@@ -22,20 +21,40 @@ export default function editprofile({ }: Props) {
     province: "",
     district: "",
     postcode: "",
-    message: ""
-  })
-  const [error, setError] = useState({
-    msgfirstname: "",
-    msglastname: "",
   })
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
     setUser((values) => ({ ...values, [name]: value }));
-
   };
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    var myHeaders = new Headers();
+    data.map((item, index) => {
+      if (item.email == user.email) {
+        setUser({ ...user, id: item.id })
+      }
+    })
+    myHeaders.append("Content-Type", "application/json");
+    var raw = JSON.stringify({
+      id: user.id,
+      email: user.email,
+      password: user.password,
+      firstname: user.firstname,
+      lastname: user.lastname,
+      dateborn: user.dateborn,
+      address: user.address,
+      province: user.province,
+      district: user.district,
+      postcode: user.postcode
+    });
+    console.log(raw)
+    fetch("http://localhost:8000/users/" + user.id, {
+        method: "PUT",
+        headers: { "content-type": "application/json" },
+        body: raw
+      })
     localStorage.setItem('userLogin', JSON.stringify(user));
     console.log("Submit 111")
     router.push('/profile')
@@ -45,7 +64,7 @@ export default function editprofile({ }: Props) {
   return (
     <>
       <Layout>
-      <title>Edit Profile</title>
+        <title>Edit Profile</title>
         <div className="bg-white shadow h-full">
           <div className="px-4 py-5 sm:px-6">
             <h3 className="text-lg font-medium leading-6 text-gray-900">Edit Personal Information</h3>
@@ -173,4 +192,15 @@ export default function editprofile({ }: Props) {
       </Layout>
     </>
   );
+}
+export async function getServerSideProps(context) {
+  const res = await fetch(`http://localhost:8000/users`);
+  const data = await res.json();
+  console.log();
+  return {
+    props:
+    {
+      data,
+    }
+  };
 }

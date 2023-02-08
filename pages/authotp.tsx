@@ -3,6 +3,8 @@ import React, { useState } from 'react'
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { useEffect } from 'react';
+import { Portal } from '@mui/material';
+import Router from "next/router";
 
 type Props = {}
 
@@ -46,54 +48,50 @@ export default function authotp({ }: Props) {
     district,
     postcode
   }
-  useEffect(() => {
-    localStorage.setItem('userLogin', JSON.stringify(inputs));
-  }, [inputs]);
+
   const handleChange = (event) => {
     const name = event.target.name;
     const value = event.target.value;
     setInputs((values) => ({ ...values, [name]: value }));
   };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    console.log(props.email + " " + props.password)
     e.preventDefault();
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     var raw = JSON.stringify({
       email: props.email,
       password: props.password,
+      firstname: props.firstname,
+      lastname: props.lastname,
+      dateborn: props.dateborn,
+      address: props.address,
+      province: props.province,
+      district: props.district,
+      postcode: props.postcode
     });
 
     if (inputs.otp == props.otp) {
       console.log("OTP is True")
-      fetch("http://localhost:8080/user-api/user/register", {
+      fetch("http://localhost:8000/users", {
         method: "POST",
         headers: myHeaders,
         body: raw,
         redirect: "follow",
       })
-        .then((response) => response.json())
-        .then((result) => {
-          console.log(result);
-          if (result.status === "ok") {
-            setInputs({ ...inputs, email: props.email, password: props.password })
-
-            MySwal.fire({
-              html: <i>{result.message}</i>,
-              icon: "success",
-            }).then((value) => {
-              return router.push('/home')
-            });
-          } else {
-            MySwal.fire({
-              html: <i>{result.message}</i>,
-              icon: "error",
-            });
-          }
-        })
-        .catch((error) => console.log("error", error));
+      setInputs(props)
+      MySwal.fire({
+        html: <i>OTP correct</i>,
+        icon: "success",
+      }).then((value) => {
+        
+        return router.push('/dashboard')
+      });
     } else {
-      console.log("oTP is False")
+      MySwal.fire({
+        html: <i>OTP incorrect</i>,
+        icon: "error",
+      });
+      console.log("OTP is False")
     }
   }
 

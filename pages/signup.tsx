@@ -10,6 +10,7 @@ export default function signup({ data }: any) {
   const MySwal = withReactContent(Swal);
   const router = useRouter();
   const [inputs, setInputs] = useState({
+    id: "",
     email: "",
     otp: `${Math.floor(100000 + Math.random() * 900000)}`,
     password: "",
@@ -49,6 +50,8 @@ export default function signup({ data }: any) {
           icon: "error",
         })
       } else {
+        console.log(inputs)
+        localStorage.setItem('userLogin', JSON.stringify(inputs));
         Router.push({
           pathname: "/authotp",
           query: {

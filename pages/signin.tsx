@@ -9,6 +9,7 @@ import Router from "next/router";
 export default function signin({ data }: any) {
 
   const [inputs, setInputs] = useState<any>({
+    id: "",
     email: "",
     password: "",
     otp: "",
@@ -22,7 +23,7 @@ export default function signin({ data }: any) {
   });
   const MySwal = withReactContent(Swal);
   const router = useRouter();
-
+  const [checkState, setCheckState] = useState(false)
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -33,19 +34,14 @@ export default function signin({ data }: any) {
   const handleSubmit = (event) => {
     event.preventDefault();
     data.map((item, index) => {
+      console.log(item)
       if (item.email == inputs.email && item.password == inputs.password) {
-        localStorage.setItem('userLogin', JSON.stringify(inputs));
+        localStorage.setItem('userLogin', JSON.stringify(item));
         MySwal.fire({
           html: <i>Login Success</i>,
           icon: "success",
-        }).then((value) => {
-
-          return router.push('/dashboard')
-        });
-      } else {
-        MySwal.fire({
-          html: <i>User not exits</i>,
-          icon: "error",
+        }).then(()=>{
+          router.push('/dashboard')
         });
       }
     })
