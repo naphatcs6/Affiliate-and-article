@@ -5,11 +5,35 @@ import { dashData } from '../data/dashdata'
 import LineChart from '../components/LineChart'
 import { CategoryScale } from 'chart.js';
 import Chart from 'chart.js/auto';
+import { useSession } from "next-auth/react";
 Chart.register(CategoryScale);
 
 type Props = {}
 
 export default function dashboard({ }: Props) {
+  const { data: session } = useSession()
+  const mailGoo = session?.user?.email as string
+  const nameGoo = session?.user?.name as string
+  const [userCurr, setUser] = useState({
+    email: "",
+    password: "",
+    firstname: "",
+    lastname: "",
+    dateborn: "",
+    address: "",
+    province: "",
+    district: "",
+    postcode: "",
+  });
+  if (session) {
+    const userLocal = localStorage.getItem("userLogin") ? JSON.parse(localStorage.getItem("userLogin")!) : "";
+    if (userLocal.email == "") {
+      console.log('eiei')
+      userCurr.email = mailGoo
+      userCurr.firstname = nameGoo
+      localStorage.setItem('userLogin', JSON.stringify(userCurr));
+    }
+  }
   const [datadash, setDatadash] = useState({
     visit: 0,
     booking: 0,
@@ -17,9 +41,9 @@ export default function dashboard({ }: Props) {
     commission: 0,
   })
   dashData.map((item, index) => {
-    datadash.visit += item.visit
-    datadash.booking += item.booking
-    datadash.checkout += item.checkout
+    datadash.visit = item.visit
+    datadash.booking = item.booking
+    datadash.checkout = item.checkout
     datadash.commission = 23
   })
   const [userData, setUserData] = useState({
@@ -54,12 +78,8 @@ export default function dashboard({ }: Props) {
   return (
     <Layout>
       <title>Dashboard</title>
-      <div className="bg-gray-50">
-        <div className="px-4 py-5 sm:px-6 bg-white shadow">
-          <h3 className="text-lg font-medium leading-6 text-gray-900">
-            Dashboard
-          </h3>
-        </div>
+      <div className="bg-white">
+       
         <div className='flex flex-row justify-center p-4'>
           <div className='mx-4 w-1/6 rounded border-2 border-zinc-500'>
             <p className='px-2'>Visits</p>

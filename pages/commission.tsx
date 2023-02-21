@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import Layout from '../components/Layout'
 import styles from "../styles/Home.module.css";
 
-
 type Props = {}
 
 export default function commission({ }: Props) {
@@ -28,12 +27,7 @@ export default function commission({ }: Props) {
   return (
     <Layout>
       <title>Calculate Commission</title>
-      <div className="bg-gray-50">
-        <div className="px-4 py-5 sm:px-6 bg-white shadow">
-          <h3 className="text-lg font-medium leading-6 text-gray-900">
-            Calculate commission
-          </h3>
-        </div>
+      <div className={`bg-gray-50`}>
         <div className="mx-auto max-w-2xl py-16 px-4 sm:py-8 sm:px-6 lg:max-w-7xl lg:px-8">
           <div className="">
             <dl>
@@ -77,21 +71,14 @@ export default function commission({ }: Props) {
                   {(inputs.price * inputs.amount) * intVal / 100}
                 </dd>
               </div>
-              <div className="bg-gray-200 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 rounded">
-                <dt className="text-sm font-medium text-gray-500">{`Tier 1: 4% Commission (<50 booking)`}</dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">Commission</dd>
-
-                <dt className="text-sm font-medium text-gray-500">{`Tier 2: 4.5% Commission (50-99bookings)`}</dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">Commission</dd>
-
-                <dt className="text-sm font-medium text-gray-500">{`Tier 3: 5% Commission (100-199 bookings)`}</dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">Commission</dd>
-
-                <dt className="text-sm font-medium text-gray-500">{`Tier 4: 6% Commission (200-999 bookings)`}</dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">Commission</dd>
-
-                <dt className="text-sm font-medium text-gray-500">{`Tier 5: 7% Commission (>999 bookings)`}</dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">Commission</dd>
+              <div className="bg-gray-200 py-5 rounded w-1/3 flex justify-center">
+                <div className=''>
+                  <div className="p-5 text-sm font-medium text-gray-500">{`Tier 1: 4% Commission (<50 bookings)`}</div>
+                  <div className="p-5 text-sm font-medium text-gray-500">{`Tier 2: 4.5% Commission (50-99 bookings)`}</div>
+                  <div className="p-5 text-sm font-medium text-gray-500">{`Tier 3: 5% Commission (100-199 bookings)`}</div>
+                  <div className="p-5 text-sm font-medium text-gray-500">{`Tier 4: 6% Commission (200-999 bookings)`}</div>
+                  <div className="p-5 text-sm font-medium text-gray-500">{`Tier 5: 7% Commission (>999 bookings)`}</div>
+                </div>
               </div>
             </dl>
           </div>

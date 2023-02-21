@@ -66,10 +66,6 @@ export default function editprofile({ data }: any) {
       <Layout>
         <title>Edit Profile</title>
         <div className="bg-white shadow h-full">
-          <div className="px-4 py-5 sm:px-6">
-            <h3 className="text-lg font-medium leading-6 text-gray-900">Edit Personal Information</h3>
-            <p className="mt-1 max-w-2xl text-sm text-gray-500">Personal details</p>
-          </div>
           <div className="border-t border-gray-200">
             <form onSubmit={handleSubmit}>
               <input type="hidden" name="remember" defaultValue="true" />

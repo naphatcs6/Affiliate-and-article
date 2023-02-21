@@ -25,7 +25,7 @@ export default function sign({ }) {
   });
 
   async function handleGoogleLogin() {
-    signIn('google', { callbackUrl: "http://localhost:3000/home" })
+    signIn('google', { callbackUrl: "http://localhost:3000/dashboard" })
     localStorage.setItem('userLogin', JSON.stringify(inputs));
   }
 
@@ -33,15 +33,15 @@ export default function sign({ }) {
     <>
       <title>Sign</title>
       <div className={`${styles.main} bg-zinc-200`}>
-        <img
-          className="h-12 w-auto px-2"
-          src="Logo.svg"
-          alt="Your Company"
-        />
-        <h2 className="mb-10 text-center text-3xl font-bold tracking-tight text-gray-900">
-          Sign your account
-        </h2>
         <div className="bg-white border-zinc-300 drop-shadow-2xl rounded flex justify-center items-center flex-col w-1/3 py-14">
+          <img
+            className="h-12 w-auto px-2"
+            src="Logo.svg"
+            alt="Your Company"
+          />
+          <h2 className="mb-10 text-center text-3xl font-bold tracking-tight text-gray-900">
+            Sign your account
+          </h2>
           <Link
             className="w-2/5 flex justify-center m-2 first-letter:bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
             href="/signin"
@@ -55,10 +55,10 @@ export default function sign({ }) {
             Sign up
           </Link>
           <button
-            className="w-3/5 flex justify-center m-2 first-letter:bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+            className="w-2/5 flex justify-center m-2 first-letter:bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
             onClick={handleGoogleLogin}
           >
-            Sign up with google
+            Continue with
             <img
               className="h-7 w-auto px-2"
               src="GoogleLogo.svg"

@@ -41,7 +41,7 @@ export default function signup({ data }: any) {
     const province = inputs.province
     const district = inputs.district
     const postcode = inputs.postcode
- 
+
     data.map((item, index) => {
       if (item.email == inputs.email && item.password == inputs.password) {
         localStorage.setItem('userLogin', JSON.stringify(inputs));
@@ -88,16 +88,17 @@ export default function signup({ data }: any) {
     <>
       <title>Sign up</title>
       <div className={`${styles.main} bg-zinc-200`}>
-        <img
-          className="mx-auto h-12 w-auto"
-          src="Logo.svg"
-          alt="Your Company"
-        />
-        <h2 className="mb-10 text-center text-3xl font-bold tracking-tight text-gray-900">
-          Sign up to your account
-        </h2>
-        <div className="bg-white border-zinc-300 drop-shadow-2xl rounded flex justify-center items-center flex-col w-6/12 py-14">
-          <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+
+        <div className="bg-white border-zinc-300 drop-shadow-2xl rounded flex justify-center items-center flex-col w-1/3 py-14">
+          <img
+            className="mx-auto h-12 w-auto"
+            src="Logo.svg"
+            alt="Your Company"
+          />
+          <h2 className="mb-10 text-center text-3xl font-bold tracking-tight text-gray-900">
+            Sign up to your account
+          </h2>
+          <form onSubmit={handleSubmit} className="space-y-6">
             <dl className="flex flex-col">
               <div className="mr-2 ml-2 mb-2">
                 <dt className="text-sm font-medium text-gray-500">Email</dt>
@@ -107,8 +108,8 @@ export default function signup({ data }: any) {
                     type='email'
                     value={inputs.email}
                     onChange={handleChange}
-                    required                   
-                    // autoComplete="off"
+                    required
+                  // autoComplete="off"
                   />
                 </dd>
               </div>

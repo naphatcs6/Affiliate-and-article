@@ -40,7 +40,7 @@ export default function signin({ data }: any) {
         MySwal.fire({
           html: <i>Login Success</i>,
           icon: "success",
-        }).then(()=>{
+        }).then(() => {
           router.push('/dashboard')
         });
       }
@@ -50,15 +50,15 @@ export default function signin({ data }: any) {
     <>
       <title>Sign in</title>
       <div className={`${styles.main} bg-zinc-200`}>
-        <img
-          className="mx-auto h-12 w-auto"
-          src="Logo.svg"
-          alt="Your Company"
-        />
-        <h2 className="mb-10 text-center text-3xl font-bold tracking-tight text-gray-900">
-          Sign in your account
-        </h2>
         <div className="bg-white border-zinc-300 drop-shadow-2xl rounded flex justify-center items-center flex-col w-1/3 py-14">
+          <img
+            className="mx-auto h-12 w-auto"
+            src="Logo.svg"
+            alt="Your Company"
+          />
+          <h2 className="mb-10 text-center text-3xl font-bold tracking-tight text-gray-900">
+            Sign in your account
+          </h2>
           <form onSubmit={handleSubmit} className="mt-2 space-y-6">
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="space-y-px rounded-md shadow-sm">

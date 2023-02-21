@@ -34,6 +34,7 @@ export default function article({ data }: any) {
     console.log(event)
     idDetail = event
     console.log(idDetail)
+    localStorage.setItem('idarticle', JSON.stringify(idDetail));
     Router.push({
       pathname: "/articleDetail",
       query: {
@@ -105,18 +106,6 @@ export default function article({ data }: any) {
     <Layout>
       <title>Article</title>
       <div className="bg-gray-50">
-        <div className="px-4 py-5 sm:px-6 bg-white shadow">
-          <button onClick={() => {
-            router.push({
-              pathname: router.pathname,
-              query: { dataSearch: "" },
-            })
-          }}>
-            <h3 className="text-lg font-medium leading-6 text-gray-900">
-              Article
-            </h3>
-          </button>
-        </div>
         <div className="mx-auto max-w-2xl py-16 px-4 sm:py-8 sm:px-6 lg:max-w-7xl lg:px-8">
           <div className='flex flex-row'>
             <input
