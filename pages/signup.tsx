@@ -5,6 +5,7 @@ import Router from "next/router";
 import styles from "../styles/Home.module.css";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import Link from "next/link";
 
 export default function signup({ data }: any) {
   const MySwal = withReactContent(Swal);
@@ -211,6 +212,9 @@ export default function signup({ data }: any) {
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3"></span>
                 Sign up
               </button>
+            </div>
+            <div className="flex flex-row">
+              <Link href="/sign" className="mr-auto ml-auto text-gray-600 hover:text-blue-500">Already signed up? Log in</Link>
             </div>
           </form>
         </div>

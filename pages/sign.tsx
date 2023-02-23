@@ -43,19 +43,19 @@ export default function sign({ }) {
             Sign your account
           </h2>
           <Link
-            className="w-2/5 flex justify-center m-2 first-letter:bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+            className="font-sans font-medium w-2/5 flex justify-center m-2 first-letter:bg-transparent hover:bg-blue-500 text-blue-700 hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
             href="/signin"
           >
             Sign in
           </Link>
           <Link
-            className="w-2/5 flex justify-center m-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            className="font-sans font-medium w-2/5 flex justify-center m-2 bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded"
             href="/signup"
           >
             Sign up
           </Link>
           <button
-            className="w-2/5 flex justify-center m-2 first-letter:bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+            className="font-sans font-medium w-2/5 flex justify-center m-2 first-letter:bg-transparent hover:bg-blue-500 text-blue-700 hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
             onClick={handleGoogleLogin}
           >
             Continue with
