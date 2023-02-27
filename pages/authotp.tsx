@@ -5,6 +5,7 @@ import withReactContent from "sweetalert2-react-content";
 import { useEffect } from 'react';
 import { Portal } from '@mui/material';
 import Router from "next/router";
+import styles from "../styles/Home.module.css";
 
 type Props = {}
 
@@ -83,7 +84,7 @@ export default function authotp({ }: Props) {
         html: <i>OTP correct</i>,
         icon: "success",
       }).then((value) => {
-        
+
         return router.push('/dashboard')
       });
     } else {
@@ -98,8 +99,8 @@ export default function authotp({ }: Props) {
   return (
     <>
       <title>Verify otp</title>
-      <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <div className="w-full max-w-md space-y-8">
+      <div className={`${styles.main} bg-zinc-200`}>
+        <div className="bg-white border-zinc-300 drop-shadow-2xl rounded flex justify-center items-center flex-col w-1/3 py-14">
           <div>
             <img
               className="mx-auto h-12 w-auto"

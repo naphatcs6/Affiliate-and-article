@@ -55,31 +55,30 @@ export default function dashboard({ }: Props) {
         data: dashData.map((data) => data.visit),
         backgroundColor: ["rgba(245,39,39,0.8)",],
         borderColor: "red",
-        borderWidth: 2,
+        borderWidth: 1,
       },
       {
         label: "Bookings",
         type: 'line' as const,
         data: dashData.map((data) => data.checkout),
-        backgroundColor: ["rgba(238,245,39,0.8)",],
-        borderColor: "yellow",
-        borderWidth: 2,
+        backgroundColor: ["rgba(0, 0, 206, 1)",],
+        borderColor: "blue",
+        borderWidth: 1,
       },
       {
         label: "Check out",
         type: 'bar' as const,
         data: dashData.map((data) => data.booking),
-        backgroundColor: ["rgba(85,85,85,1)",],
-        borderColor: "black",
-        borderWidth: 2,
+        backgroundColor: ["rgba(132, 255, 33, 0.5)",],
+        borderColor: "green",
+        borderWidth: 1,
       },
     ],
   });
   return (
     <Layout>
       <title>Dashboard</title>
-      <div className="bg-white">
-       
+      <div className="bg-gray-50">
         <div className='flex flex-row justify-center p-4'>
           <div className='mx-4 w-1/6 rounded border-2 border-zinc-500'>
             <p className='px-2'>Visits</p>
@@ -110,7 +109,7 @@ export default function dashboard({ }: Props) {
             </div>
           </div>
         </div>
-        <div className="mx-auto max-w-2xl py-16 px-4 sm:py-8 sm:px-6 lg:max-w-5xl lg:px-8 rounded-lg border-4 border-dashed border-gray-200">
+        <div className="mx-auto max-w-2xl py-16 px-4 sm:py-8 sm:px-6 lg:max-w-5xl lg:px-8 rounded-lg  border-dashed border-gray-200">
           <div className="">
             <LineChart chartData={userData} />
           </div>
