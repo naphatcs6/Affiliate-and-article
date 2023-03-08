@@ -114,7 +114,7 @@ export default function addarticle({ data }: any) {
             className='w-3/6 appearance-none rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm'
             name='images'
             type='text'
-            onChange={(e)=>{
+            onChange={(e) => {
               setImage(e.target.value)
             }}
           />
@@ -138,11 +138,6 @@ export default function addarticle({ data }: any) {
     <Layout>
       <title>Add Article</title>
       <div className="bg-gray-50">
-        <div className="px-4 py-5 sm:px-6 bg-white shadow">
-          <h3 className="text-lg font-medium leading-6 text-gray-900">
-            Write Article
-          </h3>
-        </div>
         <div className="mx-auto max-w-2xl py-16 px-4 sm:py-8 sm:px-6 lg:max-w-7xl lg:px-8">
           <div className='flex flex-row mb-5'>
             <div className='w-6/12'>
@@ -153,16 +148,18 @@ export default function addarticle({ data }: any) {
                 type='text'
                 onChange={handleTitle}
               />
-              {/* <button
-                className="w-full m-2 mb-4 flex justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-3 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                onClick={handleFileUpload}>
-                Choose cover image
-              </button> */}
-              <button
-                className="w-full m-2 mb-4 flex justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-3 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                onClick={handleIamge}>
-                Add cover image
-              </button>
+              <div className='flex flex-row'>
+                <button
+                  className="w-full m-2 mb-4 flex justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-3 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  onClick={handleFileUpload}>
+                  Upload image from local
+                </button>
+                <button
+                  className="w-full m-2 mb-4 flex justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-3 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  onClick={handleIamge}>
+                  Upload image from url
+                </button>
+              </div>
             </div>
             <div className='ml-20 rounded-lg border-4 border-dashed border-gray-200'>
               <img className='self-stretch' src={images} width="125" />

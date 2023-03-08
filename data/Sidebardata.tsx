@@ -5,6 +5,8 @@ import { VscGraphLine } from "react-icons/vsc";
 import { HiOutlineReceiptPercent } from "react-icons/hi2";
 import { GrArticle } from "react-icons/gr";
 import { BsTags } from "react-icons/bs"
+import { RiFilePaper2Line } from "react-icons/ri"
+
 
 
 export const Sidebardata = [
@@ -21,8 +23,8 @@ export const Sidebardata = [
     icon: <AiOutlineUser />
   },
   {
-    title: "Building",
-    path: "/building",
+    title: "Affiliate",
+    path: "/affiliate",
     pName: "nav-text",
     icon: <IoBedOutline />
   },
@@ -36,7 +38,7 @@ export const Sidebardata = [
     title: "Article",
     path: "/article",
     pName: "nav-text",
-    icon: <GrArticle />
+    icon: <RiFilePaper2Line />
   },
   {
     title: "Manage Tag",

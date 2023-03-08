@@ -113,12 +113,6 @@ export default function editArticle({ data }: any) {
     <Layout>
       <title>Edit Article</title>
       <div className="bg-gray-50">
-        <div className="px-4 py-5 sm:px-6 bg-white shadow">
-          <h3 className="text-lg font-medium leading-6 text-gray-900">
-            Edit Article
-          </h3>
-        </div>
-
         <div className="mx-auto max-w-2xl py-16 px-4 sm:py-8 sm:px-6 lg:max-w-7xl lg:px-8">
           <div className='flex flex-row mb-5'>
             <div className='w-6/12'>

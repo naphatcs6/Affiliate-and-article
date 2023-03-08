@@ -71,7 +71,7 @@ export default function commission({ }: Props) {
                   {(inputs.price * inputs.amount) * intVal / 100}
                 </dd>
               </div>
-              <div className="bg-gray-200 py-5 rounded w-1/3 flex justify-center">
+              <div className="bg-gray-200 py-5 rounded w-full flex justify-center mr-auto ml-auto">
                 <div className=''>
                   <div className="p-5 text-sm font-medium text-gray-500">{`Tier 1: 4% Commission (<50 bookings)`}</div>
                   <div className="p-5 text-sm font-medium text-gray-500">{`Tier 2: 4.5% Commission (50-99 bookings)`}</div>

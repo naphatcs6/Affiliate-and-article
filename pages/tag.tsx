@@ -130,7 +130,7 @@ export default function tag({ data }: any) {
             onChange={handleChange}
             required
             pattern="[a-zA-Z]{1,15}"
-            title="First name should be alphabets (a to z)."
+            title="Tag should be alphabets (a to z, 0-9)."
           />
         </form>
       </div>
@@ -207,7 +207,7 @@ export default function tag({ data }: any) {
           <div className="flex flex-wrap">
             {data.map((item, index) => {
               return (
-                <div key={index} className="m-2 w-fit group rounded flex flex-row border border-gray-300 hover:bg-indigo-50">
+                <div key={index} className="m-2 w-fit group rounded flex flex-row border bg-white border-gray-300 hover:bg-indigo-50">
                   <div className='p-2 flex flex-row'>
                     <button onClick={() => {
                       editTag(item)

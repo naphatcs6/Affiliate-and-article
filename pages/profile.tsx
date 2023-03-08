@@ -25,7 +25,7 @@ export default function profile({ }: Props) {
     <>
       <Layout>
         <title>Profile</title>
-        <div className="bg-white shadow h-full">
+        <div className="bg-white shadow">
           <div className="border-t border-gray-200">
             <dl>
               <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">

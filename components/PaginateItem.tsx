@@ -3,7 +3,9 @@ import ReactPaginate from 'react-paginate';
 
 
 export default function PaginateItem({ totalPosts, postsPerPage, setCurrentPage, currentPage, }: any) {
-  let pages = [];
+  // let pages = [];
+  const pages : number[] = [];
+  let i = 1;
 
   for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
     pages.push(i);

@@ -83,21 +83,21 @@ export default function dashboard({ }: Props) {
           <div className='mx-4 w-1/6 rounded border-2 border-zinc-500'>
             <p className='px-2'>Visits</p>
             <div className='flex flex-row'>
-              <p className='text-lg text-orange-500 px-2'>{datadash.visit}</p>
+              <p className='text-lg text-black px-2'>{datadash.visit}</p>
               <p className='ml-auto px-2'>คน</p>
             </div>
           </div>
           <div className='mx-4 w-1/6 rounded border-2 border-zinc-500'>
             <p className='px-2'>Booking</p>
             <div className='flex flex-row'>
-              <p className='text-lg text-green-500 px-2'>{datadash.booking}</p>
+              <p className='text-lg text-black px-2'>{datadash.booking}</p>
               <p className='ml-auto px-2'>ครั้ง</p>
             </div>
           </div>
           <div className='mx-4 w-1/6 rounded border-2 border-zinc-500'>
             <p className='px-2'>Check out</p>
             <div className='flex flex-row'>
-              <p className='text-lg text-red-500 px-2'>{datadash.checkout}</p>
+              <p className='text-lg text-black px-2'>{datadash.checkout}</p>
               <p className='ml-auto px-2'>ครั้ง</p>
             </div>
           </div>
