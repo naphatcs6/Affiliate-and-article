@@ -150,11 +150,6 @@
       "id": 5
     },
     {
-      "tag": "dart",
-      "author": "naphatcs6@gmail.com",
-      "id": 6
-    },
-    {
       "id": 7,
       "tag": "booking",
       "author": "naphatcs6@gmail.com"
@@ -183,11 +178,6 @@
       "tag": "rest",
       "author": "all2bot123@gmail.com",
       "id": 17
-    },
-    {
-      "tag": "hotel",
-      "author": "all2bot123@gmail.com",
-      "id": 18
     }
   ],
   "article": [
